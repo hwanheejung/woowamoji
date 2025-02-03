@@ -15,6 +15,13 @@ export default {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    colors: {
+      pink: '#FF3589',
+      yellow: '#FFF500',
+      blue: '#0094FF',
+      green: '#00E431',
+      baeminBlue: '#48D1CC',
+    },
     extend: {
       colors: {
         background: 'var(--background)',
