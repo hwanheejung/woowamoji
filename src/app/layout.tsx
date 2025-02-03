@@ -68,7 +68,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${Kkubulim.variable} ${EuljiroOraeorae.variable} ${Euljiro10YearsLater.variable} ${Euljiro.variable} ${HannaPro.variable} ${HannaAir.variable} ${Hanna11YrsOld.variable} ${KirangHaerang.variable} ${Yeonsung.variable} ${Dohyeon.variable} ${Jua.variable}`}
+        className={`${Kkubulim.variable} ${EuljiroOraeorae.variable} ${Euljiro10YearsLater.variable} ${Euljiro.variable} ${HannaPro.variable} ${HannaAir.variable} ${Hanna11YrsOld.variable} ${KirangHaerang.variable} ${Yeonsung.variable} ${Dohyeon.variable} ${Jua.variable} font-hanna-pro`}
       >
         {children}
       </body>
