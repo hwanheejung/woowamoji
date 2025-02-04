@@ -21,6 +21,10 @@ export default {
       blue: '#0094FF',
       green: '#00E431',
       baeminBlue: '#48D1CC',
+      gray: {
+        0: '#fff',
+        100: '#000',
+      },
     },
     extend: {
       colors: {

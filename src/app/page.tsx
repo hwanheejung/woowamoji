@@ -9,7 +9,7 @@ export default function Home() {
       <header>
         <Image src="/logo.png" alt="우아모지 로고" width={300} height={200} />
       </header>
-      <main className="flex gap-8 row-start-2">
+      <main className="flex gap-8 row-start-2 items-center">
         <Demo />
 
         <Maker />
