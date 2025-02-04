@@ -2,7 +2,7 @@ import { FOOTER_CONTENT } from '@/constants'
 import Image from 'next/image'
 
 const Footer = () => (
-  <footer className="row-start-3 flex flex-col gap-2 items-center justify-center">
+  <>
     <a
       className="flex items-center gap-2 hover:underline hover:underline-offset-4"
       href={FOOTER_CONTENT.notice.link}
@@ -29,7 +29,7 @@ const Footer = () => (
         {FOOTER_CONTENT.creator.name}
       </a>
     </p>
-  </footer>
+  </>
 )
 
 export default Footer
