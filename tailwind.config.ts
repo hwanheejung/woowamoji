@@ -2,10 +2,13 @@ import { FONTS } from './src/constants'
 import type { Config } from 'tailwindcss'
 
 const generateFontFamily = () => {
-  return Object.entries(FONTS).reduce((acc, [key, value]) => {
-    acc[key] = [`var(${value.variable})`, 'sans-serif']
-    return acc
-  }, {} as Record<string, string[]>)
+  return Object.entries(FONTS).reduce(
+    (acc, [key, value]) => {
+      acc[key] = [`var(${value.variable})`, 'sans-serif']
+      return acc
+    },
+    {} as Record<string, string[]>,
+  )
 }
 
 export default {
@@ -23,7 +26,8 @@ export default {
       baeminBlue: '#48D1CC',
       gray: {
         0: '#fff',
-        100: '#000',
+        100: '#F4F4F4',
+        900: '#000',
       },
     },
     extend: {

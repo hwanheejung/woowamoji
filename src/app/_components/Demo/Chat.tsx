@@ -1,6 +1,8 @@
-import { ReactNode } from 'react'
+'use client'
 
-const DefaultPicture = () => (
+import { ReactNode, useState } from 'react'
+
+const ProfilePicture = () => (
   <div className="w-[30px] h-[30px] rounded-md overflow-hidden m-2">
     <svg
       width="30"
@@ -19,22 +21,27 @@ const DefaultPicture = () => (
   </div>
 )
 
+const Reaction = ({ emoji }: { emoji: ReactNode }) => {
+  const [count, setCount] = useState<number>(1)
+
+  return (
+    <button>
+      {emoji}
+      <span>{count}</span>
+    </button>
+  )
+}
+
 interface ChatProps {
   sender: string
   time: `${number}:${number} ${'AM' | 'PM'}`
   message: ReactNode
-  hovered?: boolean
 }
 
-const Chat = ({ sender, time, message, hovered = false }: ChatProps) => {
+const Chat = ({ sender, time, message }: ChatProps) => {
   return (
-    <div
-      className={`flex gap-2 my-4 p-2 rounded-lg ${
-        hovered && 'bg-[#48D1CC]/15'
-      }`}
-    >
-      <DefaultPicture />
-
+    <div className="flex gap-2 my-4 p-2 rounded-lg">
+      <ProfilePicture />
       <div>
         <div className="flex items-center gap-4">
           <p className="text-lg">{sender}</p>

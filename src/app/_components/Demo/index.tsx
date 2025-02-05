@@ -1,9 +1,13 @@
 import Chat from './Chat'
+import HoveredChat from './HoveredChat'
 
 const Demo = () => {
   return (
     <div className="min-w-[450px]">
-      <Chat sender="정환희" time="1:17 PM" message="반가와요~" hovered />
+      <HoveredChat>
+        <Chat sender="정환희" time="1:17 PM" message="반가와요~" />
+      </HoveredChat>
+
       <Chat
         sender="정환희"
         time="1:20 PM"
