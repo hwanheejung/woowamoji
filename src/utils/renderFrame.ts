@@ -1,5 +1,9 @@
-interface Arguments {
-  canvas: HTMLCanvasElement
+interface CanvasContext {
+  context: CanvasRenderingContext2D
+  canvasSize: number
+}
+
+interface RenderOptions {
   text: string
   fontFamily?: string
   color?: string
@@ -17,24 +21,21 @@ interface Dimensions {
   height: number
 }
 
-type RenderFrame = (args: Arguments) => Dimensions
-
-const getContext = (canvas: HTMLCanvasElement): CanvasRenderingContext2D => {
-  const ctx = canvas.getContext('2d')
-  if (!ctx) throw new Error('Canvas context is not available')
-  return ctx
-}
+type RenderFrame = (
+  context: CanvasContext,
+  options: RenderOptions,
+) => Dimensions
 
 const applyBackground = (
   ctx: CanvasRenderingContext2D,
-  canvas: HTMLCanvasElement,
+  canvasSize: number,
   backGroundColor?: string,
 ) => {
   if (backGroundColor) {
     ctx.fillStyle = backGroundColor
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    ctx.fillRect(0, 0, canvasSize, canvasSize)
   } else {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.clearRect(0, 0, canvasSize, canvasSize)
   }
 }
 
@@ -63,10 +64,10 @@ const adjustFontSizeToFit = (
   let fontSize = 50
   ctx.font = `${fontSize}px ${fontFamily}`
 
-  const textMetrics = ctx.measureText(text)
-  const textWidth = textMetrics.width
+  const metrics = ctx.measureText(text)
+  const textWidth = metrics.width
   const textHeight =
-    textMetrics.actualBoundingBoxAscent + textMetrics.actualBoundingBoxDescent
+    metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent
 
   // 비율 계산
   const widthScale = canvasSize / textWidth
@@ -82,17 +83,17 @@ const adjustFontSizeToFit = (
 
 const renderCenteredText = (
   ctx: CanvasRenderingContext2D,
+  canvasSize: number,
   text: string,
   fontFamily: string,
-  canvas: HTMLCanvasElement,
 ) => {
-  adjustFontSizeToFit(ctx, text, fontFamily, canvas.width)
+  adjustFontSizeToFit(ctx, text, fontFamily, canvasSize)
 
   // 중앙 정렬
   ctx.textAlign = 'center' // horizontal
   ctx.textBaseline = 'middle' // vertical
 
-  ctx.fillText(text, canvas.width / 2, canvas.height / 2)
+  ctx.fillText(text, canvasSize / 2, canvasSize / 2)
 
   return ctx.measureText(text)
 }
@@ -112,9 +113,8 @@ const calculateDimensions = (
   }
 }
 
-const renderFrame: RenderFrame = (args) => {
+const renderFrame: RenderFrame = ({ context, canvasSize }, options) => {
   const {
-    canvas,
     text,
     fontFamily = 'euljiro',
     color = '#000000',
@@ -123,18 +123,17 @@ const renderFrame: RenderFrame = (args) => {
     opacity = 1,
     rotation = 0,
     scale = 1,
-  } = args
+  } = options
 
-  const ctx = getContext(canvas)
-  ctx.save()
+  context.save()
 
-  applyBackground(ctx, canvas, backGroundColor)
-  applyStyles(ctx, color, opacity, position, rotation, scale)
+  applyBackground(context, canvasSize, backGroundColor)
+  applyStyles(context, color, opacity, position, rotation, scale)
 
-  const metrics = renderCenteredText(ctx, text, fontFamily, canvas)
-
+  const metrics = renderCenteredText(context, canvasSize, text, fontFamily)
   const dimensions = calculateDimensions(position, metrics)
-  ctx.restore()
+
+  context.restore()
 
   return dimensions
 }
