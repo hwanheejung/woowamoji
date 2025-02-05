@@ -20,47 +20,81 @@ interface Dimensions {
 type RenderFrame = (args: Arguments) => Dimensions
 
 const getContext = (canvas: HTMLCanvasElement): CanvasRenderingContext2D => {
-  const context = canvas.getContext('2d')
-  if (!context) throw new Error('Canvas context is not available')
-  return context
+  const ctx = canvas.getContext('2d')
+  if (!ctx) throw new Error('Canvas context is not available')
+  return ctx
 }
 
 const applyBackground = (
-  context: CanvasRenderingContext2D,
+  ctx: CanvasRenderingContext2D,
   canvas: HTMLCanvasElement,
   backGroundColor?: string,
 ) => {
   if (backGroundColor) {
-    context.fillStyle = backGroundColor
-    context.fillRect(0, 0, canvas.width, canvas.height)
+    ctx.fillStyle = backGroundColor
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
   } else {
-    context.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
   }
 }
 
 const applyStyles = (
-  context: CanvasRenderingContext2D,
-  fontFamily: string,
+  ctx: CanvasRenderingContext2D,
   color: string,
   opacity: number,
   position: { x: number; y: number },
   rotation: number,
   scale: number,
 ) => {
-  context.globalAlpha = opacity
-  context.font = fontFamily
-  context.fillStyle = color
-  context.translate(position.x, position.y)
-  context.rotate((rotation * Math.PI) / 180)
-  context.scale(scale, scale)
+  ctx.globalAlpha = opacity
+  ctx.fillStyle = color
+  ctx.translate(position.x, position.y)
+  ctx.rotate((rotation * Math.PI) / 180)
+  ctx.scale(scale, scale)
 }
 
-const renderText = (
-  context: CanvasRenderingContext2D,
+const adjustFontSizeToFit = (
+  ctx: CanvasRenderingContext2D,
   text: string,
-): TextMetrics => {
-  context.fillText(text, 0, 0)
-  return context.measureText(text)
+  fontFamily: string,
+  canvasSize: number,
+) => {
+  // 초기 폰트 크기 설정
+  let fontSize = 50
+  ctx.font = `${fontSize}px ${fontFamily}`
+
+  const textMetrics = ctx.measureText(text)
+  const textWidth = textMetrics.width
+  const textHeight =
+    textMetrics.actualBoundingBoxAscent + textMetrics.actualBoundingBoxDescent
+
+  // 비율 계산
+  const widthScale = canvasSize / textWidth
+  const heightScale = canvasSize / textHeight
+
+  // 더 작은 스케일 선택
+  const scaleFactor = Math.min(widthScale, heightScale)
+  fontSize = Math.floor(fontSize * scaleFactor)
+
+  // 최종 폰트 적용
+  ctx.font = `${fontSize}px ${fontFamily}`
+}
+
+const renderCenteredText = (
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  fontFamily: string,
+  canvas: HTMLCanvasElement,
+) => {
+  adjustFontSizeToFit(ctx, text, fontFamily, canvas.width)
+
+  // 중앙 정렬
+  ctx.textAlign = 'center' // horizontal
+  ctx.textBaseline = 'middle' // vertical
+
+  ctx.fillText(text, canvas.width / 2, canvas.height / 2)
+
+  return ctx.measureText(text)
 }
 
 const calculateDimensions = (
@@ -82,7 +116,7 @@ const renderFrame: RenderFrame = (args) => {
   const {
     canvas,
     text,
-    fontFamily = '16px Arial',
+    fontFamily = 'euljiro',
     color = '#000000',
     backGroundColor = '#ffffff',
     position = { x: 0, y: 0 },
@@ -91,16 +125,16 @@ const renderFrame: RenderFrame = (args) => {
     scale = 1,
   } = args
 
-  const context = getContext(canvas)
+  const ctx = getContext(canvas)
+  ctx.save()
 
-  context.save()
+  applyBackground(ctx, canvas, backGroundColor)
+  applyStyles(ctx, color, opacity, position, rotation, scale)
 
-  applyBackground(context, canvas, backGroundColor)
-  applyStyles(context, fontFamily, color, opacity, position, rotation, scale)
-  const metrics = renderText(context, text)
+  const metrics = renderCenteredText(ctx, text, fontFamily, canvas)
+
   const dimensions = calculateDimensions(position, metrics)
-
-  context.restore()
+  ctx.restore()
 
   return dimensions
 }
