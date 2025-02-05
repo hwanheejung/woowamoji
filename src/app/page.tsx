@@ -5,16 +5,24 @@ import Maker from './_components/Maker'
 
 export default function Home() {
   return (
-    <div className="min-h-screen grid grid-rows-[20px_1fr_20px] items-center justify-items-center p-8 pb-20 gap-10 sm:p-20">
+    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-10 p-8 pb-20 sm:p-20">
       <header>
-        <Image src="/logo.png" alt="우아모지 로고" width={300} height={200} />
+        <Image
+          src="/logo.png"
+          alt="우아모지 로고"
+          width={300}
+          height={100}
+          style={{ width: 'auto', height: 'auto' }}
+          priority
+          loading="eager"
+        />
       </header>
-      <main className="flex gap-8 row-start-2 items-center">
+      <main className="row-start-2 flex items-center gap-8">
         <Demo />
 
         <Maker />
       </main>
-      <footer className="row-start-3 flex flex-col gap-2 items-center justify-center">
+      <footer className="row-start-3 flex flex-col items-center justify-center gap-2">
         <Footer />
       </footer>
     </div>
