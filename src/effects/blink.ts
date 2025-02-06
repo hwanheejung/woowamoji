@@ -15,11 +15,10 @@ type Blinker = (
   context: CanvasRenderingContext2D,
   canvasSize: number,
   frameOptions: FrameRenderOptions,
-) => void
+) => () => void
 
 const createBlinker = (): Blinker => {
   let timer: Timer = null
-
   const animate: Animate = (context, canvasSize, frameOptions, visible) => {
     renderFrame(context, canvasSize, {
       ...frameOptions,
@@ -35,6 +34,10 @@ const createBlinker = (): Blinker => {
   return (context, canvasSize, frameOptions) => {
     if (timer) clearTimeout(timer)
     animate(context, canvasSize, frameOptions, true)
+
+    return () => {
+      if (timer) clearTimeout(timer)
+    }
   }
 }
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { ReactNode } from 'react'
-import Canvas from './Canvas'
+import Canvas from '../Canvas'
 import Image from 'next/image'
 
 const EmojiContainer = ({ children }: { children: ReactNode }) => (
