@@ -8,7 +8,13 @@ const blink = (context: CanvasRenderingContext2D, canvasSize: number) => {
   const animate = () => {
     renderFrame(
       { context, canvasSize },
-      { text: '안녕', opacity: visible ? 1 : 0, backGroundColor: '#00E431' },
+      {
+        text: '안녕',
+        opacity: visible ? 1 : 0,
+        backGroundColor: '#000',
+        color: '#00E431',
+        fontFamily: 'kkubulim',
+      },
     )
     visible = !visible
     setTimeout(animate, DELAY)
