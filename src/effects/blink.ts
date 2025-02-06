@@ -1,9 +1,9 @@
 import { FrameRenderOptions } from '@/contexts/FrameContext'
 import renderFrame from '@/utils/renderFrame'
+import { Timer } from '@/utils/types'
 
 const DELAY = 500
 
-type Timer = ReturnType<typeof setTimeout> | null
 type Animate = (
   context: CanvasRenderingContext2D,
   canvasSize: number,

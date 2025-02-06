@@ -1,5 +1,4 @@
-type AnyFunc = (...args: any[]) => any
-type Timeout = ReturnType<typeof setTimeout> | null
+import { AnyFunc, Timer } from './types'
 
 type Debounce = <T extends AnyFunc>(
   fn: T,
@@ -7,11 +6,11 @@ type Debounce = <T extends AnyFunc>(
 ) => (...args: Parameters<T>) => void
 
 const debounce: Debounce = (fn, delay) => {
-  let timeout: Timeout = null
+  let timer: Timer = null
 
   return (...args) => {
-    if (timeout) clearTimeout(timeout)
-    timeout = setTimeout(() => {
+    if (timer) clearTimeout(timer)
+    timer = setTimeout(() => {
       fn(...args)
     }, delay)
   }
