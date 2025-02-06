@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Demo from './_components/Demo'
 import Footer from './_components/Footer'
 import Maker from './_components/Maker'
+import { FrameContextProvider } from '@/contexts/FrameContext'
 
 export default function Home() {
   return (
@@ -18,9 +19,10 @@ export default function Home() {
         />
       </header>
       <main className="row-start-2 flex items-center gap-8">
-        <Demo />
-
-        <Maker />
+        <FrameContextProvider>
+          <Demo />
+          <Maker />
+        </FrameContextProvider>
       </main>
       <footer className="row-start-3 flex flex-col items-center justify-center gap-2">
         <Footer />
