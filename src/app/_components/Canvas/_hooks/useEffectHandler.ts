@@ -1,7 +1,7 @@
 import { useFrame } from '@/contexts/FrameContext'
 import { blink } from '@/effects'
 import renderFrame from '@/utils/renderFrame'
-import { useCallback, useMemo, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 
 const CANVAS_SIZE = 50
 
@@ -10,8 +10,11 @@ export const useEffectHandler = (
 ) => {
   const { text, fontFamily, effect } = useFrame()
   const effectCleanupRef = useRef<(() => void) | null>(null)
+  const frameOptionsRef = useRef({ text, fontFamily })
 
-  const frameOptions = useMemo(() => ({ text, fontFamily }), [text, fontFamily])
+  useEffect(() => {
+    frameOptionsRef.current = { text, fontFamily }
+  }, [text, fontFamily])
 
   const applyEffect = useCallback(() => {
     // 이전 timer clear
@@ -22,6 +25,8 @@ export const useEffectHandler = (
 
     const ctx = contextRef.current
     if (!ctx) return
+
+    const frameOptions = frameOptionsRef.current
 
     // 🟢
     switch (effect) {
@@ -35,7 +40,7 @@ export const useEffectHandler = (
         renderFrame(ctx, CANVAS_SIZE, frameOptions)
         break
     }
-  }, [frameOptions, effect, contextRef])
+  }, [effect, contextRef])
 
-  return { applyEffect, effect, frameOptions }
+  return { applyEffect, effect, frameOptions: frameOptionsRef.current }
 }
