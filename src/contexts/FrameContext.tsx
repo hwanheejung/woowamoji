@@ -3,8 +3,8 @@
 import { FontKey } from '@/constants'
 import { ReactNode, createContext, useContext, useMemo, useState } from 'react'
 
-const DEFAULT_OPTIONS: FrameContextProps = {
-  text: '',
+const DEFAULT_OPTIONS: FrameRenderOptions = {
+  text: '안녕',
   fontFamily: FontKey.JUA,
   color: '#000',
   backGroundColor: '#fff',
@@ -14,7 +14,7 @@ const DEFAULT_OPTIONS: FrameContextProps = {
   scale: 1,
 }
 
-interface FrameContextProps {
+export interface FrameRenderOptions {
   text?: string
   fontFamily?: FontKey
   color?: string
@@ -25,8 +25,8 @@ interface FrameContextProps {
   scale?: number
 }
 
-interface FrameContextValue extends FrameContextProps {
-  updateFrame: (options: Partial<FrameContextProps>) => void
+interface FrameContextValue extends FrameRenderOptions {
+  updateFrame: (options: Partial<FrameRenderOptions>) => void
   resetFrame: () => void
 }
 
@@ -39,10 +39,10 @@ interface FrameContextProviderProps {
 export const FrameContextProvider = ({
   children,
 }: FrameContextProviderProps) => {
-  const [frame, setFrame] = useState<FrameContextProps>(DEFAULT_OPTIONS)
+  const [frame, setFrame] = useState<FrameRenderOptions>(DEFAULT_OPTIONS)
 
   // 업데이트 함수 (부분 업데이트 지원)
-  const updateFrame = (options: Partial<FrameContextProps>) => {
+  const updateFrame = (options: Partial<FrameRenderOptions>) => {
     setFrame((prev) => ({
       ...prev,
       ...options,

@@ -1,26 +1,43 @@
+import { FrameRenderOptions } from '@/contexts/FrameContext'
 import renderFrame from '@/utils/renderFrame'
 
 const DELAY = 500
 
-const blink = (context: CanvasRenderingContext2D, canvasSize: number) => {
-  let visible = true
+type Timer = ReturnType<typeof setTimeout> | null
+type Animate = (
+  context: CanvasRenderingContext2D,
+  canvasSize: number,
+  frameOptions: FrameRenderOptions,
+  visible: boolean,
+) => void
 
-  const animate = () => {
-    renderFrame(
-      { context, canvasSize },
-      {
-        text: '안녕',
-        opacity: visible ? 1 : 0,
-        backGroundColor: '#000',
-        color: '#00E431',
-        fontFamily: 'kkubulim',
-      },
+type Blinker = (
+  context: CanvasRenderingContext2D,
+  canvasSize: number,
+  frameOptions: FrameRenderOptions,
+) => void
+
+const createBlinker = (): Blinker => {
+  let timer: Timer = null
+
+  const animate: Animate = (context, canvasSize, frameOptions, visible) => {
+    renderFrame(context, canvasSize, {
+      ...frameOptions,
+      opacity: visible ? 1 : 0,
+    })
+
+    timer = setTimeout(
+      () => animate(context, canvasSize, frameOptions, !visible),
+      DELAY,
     )
-    visible = !visible
-    setTimeout(animate, DELAY)
   }
 
-  animate()
+  return (context, canvasSize, frameOptions) => {
+    if (timer) clearTimeout(timer)
+    animate(context, canvasSize, frameOptions, true)
+  }
 }
+
+const blink = createBlinker()
 
 export default blink

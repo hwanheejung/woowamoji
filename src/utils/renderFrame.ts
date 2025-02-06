@@ -1,18 +1,4 @@
-interface CanvasContext {
-  context: CanvasRenderingContext2D
-  canvasSize: number
-}
-
-interface RenderOptions {
-  text: string
-  fontFamily?: string
-  color?: string
-  backGroundColor?: string
-  position?: { x: number; y: number }
-  opacity?: number
-  rotation?: number
-  scale?: number
-}
+import { FrameRenderOptions } from '@/contexts/FrameContext'
 
 interface Dimensions {
   x: number
@@ -22,8 +8,9 @@ interface Dimensions {
 }
 
 type RenderFrame = (
-  context: CanvasContext,
-  options: RenderOptions,
+  context: CanvasRenderingContext2D,
+  canvasSize: number,
+  options: FrameRenderOptions,
 ) => Dimensions
 
 const applyBackground = (
@@ -113,12 +100,12 @@ const calculateDimensions = (
   }
 }
 
-const renderFrame: RenderFrame = ({ context, canvasSize }, options) => {
+const renderFrame: RenderFrame = (context, canvasSize, options) => {
   const {
-    text,
+    text = '',
     fontFamily = 'euljiro',
     color = '#000000',
-    backGroundColor = '#ffffff',
+    backGroundColor = '#4AFFF8',
     position = { x: 0, y: 0 },
     opacity = 1,
     rotation = 0,
