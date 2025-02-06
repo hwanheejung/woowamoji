@@ -55,3 +55,14 @@ export const MENU = {
   [Category.TEXT]: [MenuItem.FONT, MenuItem.TEXT_COLOR],
   [Category.BACKGROUND]: [MenuItem.BACKGROUND_COLOR],
 } as const
+
+// 메뉴: 효과
+export enum Effect {
+  NONE = 'none',
+  BLINK = 'blink',
+  SLIDE_LEFT_RIGHT = 'slideLeftRight',
+  SLIDE_UP = 'slideUp',
+  BOUNCE = 'bounce',
+  PULSE_SCALE = 'pulseScale',
+  ROTATE_LOOP = 'rotateLoop',
+}

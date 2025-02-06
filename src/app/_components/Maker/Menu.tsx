@@ -29,7 +29,7 @@ const Menu = ({ menus, currentCategory, setCurrentCategory }: MenuProps) => {
   return (
     <div className="flex flex-col items-center">
       {/* 카테고리 선택 버튼 */}
-      <nav className="mb-5 flex items-center gap-5">
+      <nav className="mb-5 flex items-center">
         {Object.values(Category).map((category) => {
           const { key, name } = CATEGORY_INFO[category]
 
@@ -50,13 +50,11 @@ const Menu = ({ menus, currentCategory, setCurrentCategory }: MenuProps) => {
       </nav>
 
       {/* 현재 카테고리에 해당하는 메뉴 컴포넌트 렌더링 */}
-      <section className="flex justify-center gap-5">
+      <section className="flex w-full justify-center gap-5">
         {menus
           .filter((menu) => menu.category === currentCategory)
           .map(({ menuItem, Component }) => (
-            <div key={menuItem} className="mx-5">
-              <Component />
-            </div>
+            <Component key={menuItem} />
           ))}
       </section>
     </div>

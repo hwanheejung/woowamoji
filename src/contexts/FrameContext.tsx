@@ -1,6 +1,7 @@
 'use client'
 
 import { FontKey } from '@/constants'
+import { Effect } from '@/constants/menu'
 import { ReactNode, createContext, useContext, useMemo, useState } from 'react'
 
 const DEFAULT_OPTIONS: FrameRenderOptions = {
@@ -26,6 +27,8 @@ export interface FrameRenderOptions {
 }
 
 interface FrameContextValue extends FrameRenderOptions {
+  effect: Effect
+  setEffect: (effect: Effect) => void
   updateFrame: (options: Partial<FrameRenderOptions>) => void
   resetFrame: () => void
 }
@@ -40,6 +43,7 @@ export const FrameContextProvider = ({
   children,
 }: FrameContextProviderProps) => {
   const [frame, setFrame] = useState<FrameRenderOptions>(DEFAULT_OPTIONS)
+  const [effect, setEffect] = useState<Effect>(Effect.NONE)
 
   // 업데이트 함수 (부분 업데이트 지원)
   const updateFrame = (options: Partial<FrameRenderOptions>) => {
@@ -57,10 +61,12 @@ export const FrameContextProvider = ({
   const value = useMemo(
     () => ({
       ...frame,
+      effect,
+      setEffect,
       updateFrame,
       resetFrame,
     }),
-    [frame],
+    [frame, effect],
   )
 
   return <FrameContext.Provider value={value}>{children}</FrameContext.Provider>
