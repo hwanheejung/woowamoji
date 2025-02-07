@@ -1,5 +1,5 @@
 import { useFrame } from '@/contexts/FrameContext'
-import { blink, float, pulse, shake, spin, wobble } from '@/effects'
+import { blink, bounce, float, pulse, shake, spin, wobble } from '@/effects'
 import renderFrame from '@/utils/renderFrame'
 import { useCallback, useMemo, useRef } from 'react'
 
@@ -30,6 +30,7 @@ export const useEffectHandler = (
     spin,
     float,
     shake,
+    bounce,
   }
 
   const applyEffect = useCallback(() => {

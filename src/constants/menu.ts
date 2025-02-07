@@ -65,9 +65,9 @@ export enum Effect {
   SPIN = 'spin',
   FLOAT = 'float',
   SHAKE = 'shake',
+  BOUNCE = 'bounce',
   SLIDE_LEFT_RIGHT = 'slideLeftRight',
   SLIDE_UP = 'slideUp',
-  BOUNCE = 'bounce',
 }
 
 // 메뉴: 텍스트 색상

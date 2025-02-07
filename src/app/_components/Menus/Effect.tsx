@@ -13,6 +13,7 @@ const Component = () => (
       <Item type={Effect.SPIN} />
       <Item type={Effect.FLOAT} />
       <Item type={Effect.SHAKE} />
+      <Item type={Effect.BOUNCE} />
     </div>
   </Wrapper>
 )
