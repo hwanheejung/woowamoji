@@ -16,39 +16,34 @@ export const useEffectHandler = (
     [text, fontFamily, color, backGroundColor],
   )
 
+  const effectHandlers: Record<
+    string,
+    (
+      ctx: CanvasRenderingContext2D,
+      size: number,
+      options: typeof frameOptions,
+    ) => (() => void) | void
+  > = {
+    blink,
+    pulse,
+    wobble,
+    spin,
+    float,
+  }
+
   const applyEffect = useCallback(() => {
-    // 이전 timer clear
-    if (effectCleanupRef.current) {
-      effectCleanupRef.current()
-      effectCleanupRef.current = null
-    }
+    // 이전 effect 정리
+    effectCleanupRef.current?.()
+    effectCleanupRef.current = null
 
     const ctx = contextRef.current
     if (!ctx) return
 
-    // 🟢
-    switch (effect) {
-      case 'none':
-        renderFrame(ctx, CANVAS_SIZE, frameOptions)
-        break
-      case 'blink':
-        effectCleanupRef.current = blink(ctx, CANVAS_SIZE, frameOptions)
-        break
-      case 'pulse':
-        effectCleanupRef.current = pulse(ctx, CANVAS_SIZE, frameOptions)
-        break
-      case 'wobble':
-        effectCleanupRef.current = wobble(ctx, CANVAS_SIZE, frameOptions)
-        break
-      case 'spin':
-        effectCleanupRef.current = spin(ctx, CANVAS_SIZE, frameOptions)
-        break
-      case 'float':
-        effectCleanupRef.current = float(ctx, CANVAS_SIZE, frameOptions)
-        break
-      default:
-        renderFrame(ctx, CANVAS_SIZE, frameOptions)
-        break
+    if (effect === 'none') {
+      renderFrame(ctx, CANVAS_SIZE, frameOptions)
+    } else {
+      effectCleanupRef.current =
+        effectHandlers[effect]?.(ctx, CANVAS_SIZE, frameOptions) ?? null
     }
   }, [contextRef, effect, frameOptions])
 
