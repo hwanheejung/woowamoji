@@ -11,6 +11,7 @@ const Component = () => (
       <Item type={Effect.PULSE} />
       <Item type={Effect.WOBBLE} />
       <Item type={Effect.SPIN} />
+      <Item type={Effect.FLOAT} />
     </div>
   </Wrapper>
 )
