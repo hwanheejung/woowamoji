@@ -7,8 +7,8 @@ import { ReactNode, createContext, useContext, useMemo, useState } from 'react'
 const DEFAULT_OPTIONS: FrameRenderOptions = {
   text: '안녕',
   fontFamily: FontKey.JUA,
-  color: '#000',
-  backGroundColor: '#fff',
+  color: '#000000',
+  backGroundColor: '#ffffff',
   position: { x: 0, y: 0 },
   opacity: 1,
   rotation: 0,
@@ -18,8 +18,8 @@ const DEFAULT_OPTIONS: FrameRenderOptions = {
 export interface FrameRenderOptions {
   text?: string
   fontFamily?: FontKey
-  color?: string
-  backGroundColor?: string
+  color?: `#${string}`
+  backGroundColor?: `#${string}`
   position?: { x: number; y: number }
   opacity?: number
   rotation?: number

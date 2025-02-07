@@ -27,9 +27,9 @@ interface MenuProps {
 
 const Menu = ({ menus, currentCategory, setCurrentCategory }: MenuProps) => {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-1 flex-col items-center overflow-hidden">
       {/* 카테고리 선택 버튼 */}
-      <nav className="mb-5 flex items-center">
+      <nav className="flex items-center">
         {Object.values(Category).map((category) => {
           const { key, name } = CATEGORY_INFO[category]
 
@@ -50,7 +50,7 @@ const Menu = ({ menus, currentCategory, setCurrentCategory }: MenuProps) => {
       </nav>
 
       {/* 현재 카테고리에 해당하는 메뉴 컴포넌트 렌더링 */}
-      <section className="flex w-full justify-center gap-5">
+      <section className="scrollbar-hide flex w-full flex-1 flex-col justify-start gap-5 overflow-y-scroll pb-10 pt-5">
         {menus
           .filter((menu) => menu.category === currentCategory)
           .map(({ menuItem, Component }) => (

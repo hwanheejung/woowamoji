@@ -8,10 +8,13 @@ const CANVAS_SIZE = 50
 export const useEffectHandler = (
   contextRef: React.RefObject<CanvasRenderingContext2D | null>,
 ) => {
-  const { text, fontFamily, effect } = useFrame()
+  const { text, fontFamily, color, effect } = useFrame()
   const effectCleanupRef = useRef<(() => void) | null>(null)
 
-  const frameOptions = useMemo(() => ({ text, fontFamily }), [text, fontFamily])
+  const frameOptions = useMemo(
+    () => ({ text, fontFamily, color }),
+    [text, fontFamily, color],
+  )
 
   const applyEffect = useCallback(() => {
     // 이전 timer clear

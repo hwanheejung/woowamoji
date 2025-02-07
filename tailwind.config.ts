@@ -1,5 +1,6 @@
 import { FONTS } from './src/constants'
 import type { Config } from 'tailwindcss'
+import scrollbarHide from 'tailwind-scrollbar-hide'
 
 const generateFontFamily = () => {
   return Object.entries(FONTS).reduce(
@@ -39,5 +40,5 @@ export default {
       fontFamily: generateFontFamily(),
     },
   },
-  plugins: [],
+  plugins: [scrollbarHide],
 } satisfies Config

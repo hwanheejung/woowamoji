@@ -6,8 +6,9 @@ import Menu from './Menu'
 import TextInput from './TextInput'
 import { Category } from '@/constants/menu'
 import { EffectMenu, FontMenu } from '../Menus'
+import TextColorMenu from '../Menus/TextColor'
 
-const menus = [EffectMenu, FontMenu]
+const menus = [EffectMenu, TextColorMenu, FontMenu]
 
 const Maker = () => {
   const [currentCategory, setCurrentCategory] = useState<Category>(
@@ -22,6 +23,9 @@ const Maker = () => {
         currentCategory={currentCategory}
         setCurrentCategory={setCurrentCategory}
       />
+      <button className="text-white w-full rounded-full bg-baeminBlue py-3">
+        완료
+      </button>
     </Layout>
   )
 }
