@@ -9,6 +9,7 @@ const Component = () => (
       <Item type={Effect.NONE} />
       <Item type={Effect.BLINK} />
       <Item type={Effect.PULSE} />
+      <Item type={Effect.WOBBLE} />
     </div>
   </Wrapper>
 )

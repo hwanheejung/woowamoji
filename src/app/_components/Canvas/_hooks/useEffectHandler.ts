@@ -1,5 +1,6 @@
 import { useFrame } from '@/contexts/FrameContext'
 import { blink, pulse } from '@/effects'
+import wobble from '@/effects/wobble'
 import renderFrame from '@/utils/renderFrame'
 import { useCallback, useMemo, useRef } from 'react'
 
@@ -36,6 +37,9 @@ export const useEffectHandler = (
         break
       case 'pulse':
         effectCleanupRef.current = pulse(ctx, CANVAS_SIZE, frameOptions)
+        break
+      case 'wobble':
+        effectCleanupRef.current = wobble(ctx, CANVAS_SIZE, frameOptions)
         break
       default:
         renderFrame(ctx, CANVAS_SIZE, frameOptions)

@@ -60,11 +60,11 @@ export const MENU = {
 export enum Effect {
   NONE = 'none',
   BLINK = 'blink',
+  PULSE = 'pulse',
+  WOBBLE = 'wobble',
   SLIDE_LEFT_RIGHT = 'slideLeftRight',
   SLIDE_UP = 'slideUp',
   BOUNCE = 'bounce',
-  PULSE = 'pulse',
-  ROTATE_LOOP = 'rotateLoop',
 }
 
 // 메뉴: 텍스트 색상
