@@ -29,7 +29,7 @@ const TextInput = () => {
   )
 
   return (
-    <div className="mx-auto my-5">
+    <div className="mx-auto mb-5 mt-3">
       <input
         type="text"
         value={localText}

@@ -8,6 +8,7 @@ const Component = () => (
     <div className="flex flex-wrap gap-3">
       <Item type={Effect.NONE} />
       <Item type={Effect.BLINK} />
+      <Item type={Effect.PULSE} />
     </div>
   </Wrapper>
 )

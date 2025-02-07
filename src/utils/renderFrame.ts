@@ -37,6 +37,7 @@ const applyStyles = (
   ctx.globalAlpha = opacity
   ctx.fillStyle = color
   ctx.translate(position.x, position.y)
+
   ctx.rotate((rotation * Math.PI) / 180)
   ctx.scale(scale, scale)
 }
@@ -115,7 +116,9 @@ const renderFrame: RenderFrame = (context, canvasSize, options) => {
   context.save()
 
   applyBackground(context, canvasSize, backGroundColor)
+  context.translate(canvasSize / 2, canvasSize / 2) // 중심 이동
   applyStyles(context, color, opacity, position, rotation, scale)
+  context.translate(-canvasSize / 2, -canvasSize / 2) // 원래 위치로 이동
 
   const metrics = renderCenteredText(context, canvasSize, text, fontFamily)
   const dimensions = calculateDimensions(position, metrics)

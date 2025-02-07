@@ -63,7 +63,7 @@ export enum Effect {
   SLIDE_LEFT_RIGHT = 'slideLeftRight',
   SLIDE_UP = 'slideUp',
   BOUNCE = 'bounce',
-  PULSE_SCALE = 'pulseScale',
+  PULSE = 'pulse',
   ROTATE_LOOP = 'rotateLoop',
 }
 

@@ -1,5 +1,5 @@
 import { useFrame } from '@/contexts/FrameContext'
-import { blink } from '@/effects'
+import { blink, pulse } from '@/effects'
 import renderFrame from '@/utils/renderFrame'
 import { useCallback, useMemo, useRef } from 'react'
 
@@ -33,6 +33,9 @@ export const useEffectHandler = (
         break
       case 'blink':
         effectCleanupRef.current = blink(ctx, CANVAS_SIZE, frameOptions)
+        break
+      case 'pulse':
+        effectCleanupRef.current = pulse(ctx, CANVAS_SIZE, frameOptions)
         break
       default:
         renderFrame(ctx, CANVAS_SIZE, frameOptions)
