@@ -64,6 +64,7 @@ export enum Effect {
   WOBBLE = 'wobble',
   SPIN = 'spin',
   FLOAT = 'float',
+  SHAKE = 'shake',
   SLIDE_LEFT_RIGHT = 'slideLeftRight',
   SLIDE_UP = 'slideUp',
   BOUNCE = 'bounce',

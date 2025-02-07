@@ -12,6 +12,7 @@ const Component = () => (
       <Item type={Effect.WOBBLE} />
       <Item type={Effect.SPIN} />
       <Item type={Effect.FLOAT} />
+      <Item type={Effect.SHAKE} />
     </div>
   </Wrapper>
 )
