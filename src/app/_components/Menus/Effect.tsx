@@ -10,6 +10,7 @@ const Component = () => (
       <Item type={Effect.BLINK} />
       <Item type={Effect.PULSE} />
       <Item type={Effect.WOBBLE} />
+      <Item type={Effect.SPIN} />
     </div>
   </Wrapper>
 )

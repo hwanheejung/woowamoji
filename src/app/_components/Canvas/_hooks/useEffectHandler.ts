@@ -1,5 +1,6 @@
 import { useFrame } from '@/contexts/FrameContext'
 import { blink, pulse } from '@/effects'
+import spin from '@/effects/spin'
 import wobble from '@/effects/wobble'
 import renderFrame from '@/utils/renderFrame'
 import { useCallback, useMemo, useRef } from 'react'
@@ -41,6 +42,8 @@ export const useEffectHandler = (
       case 'wobble':
         effectCleanupRef.current = wobble(ctx, CANVAS_SIZE, frameOptions)
         break
+      case 'spin':
+        effectCleanupRef.current = spin(ctx, CANVAS_SIZE, frameOptions)
       default:
         renderFrame(ctx, CANVAS_SIZE, frameOptions)
         break
