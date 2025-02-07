@@ -69,73 +69,32 @@ export enum Effect {
 
 // 메뉴: 텍스트 색상
 export enum TextColor {
-  BLACK = 'black',
-  WHITE = 'white',
-  RED = 'red',
-  ORANGE = 'orange',
-  YELLOW = 'yellow',
-  GREEN = 'green',
-  BLUE = 'blue',
-  PURPLE = 'purple',
-  PINK = 'pink',
-  GRAY = 'gray',
-  BROWN = 'brown',
+  BLACK = '#1A1A1A',
+  WHITE = '#FFFFFF',
+  RED = '#E63946',
+  ORANGE = '#FF9000',
+  YELLOW = '#FFF500',
+  GREEN = '#00E431',
+  BLUE = '#0094FF',
+  PURPLE = '#A236FF',
+  PINK = '#FF3589',
+  GRAY = '#7F7F7F',
+  BROWN = '#8B5A2B',
 }
 
-export const TEXT_COLOR = {
-  [TextColor.BLACK]: {
-    key: TextColor.BLACK,
-    name: '검정색',
-    color: '#000000',
-  },
-  [TextColor.WHITE]: {
-    key: TextColor.WHITE,
-    name: '흰색',
-    color: '#ffffff',
-  },
-  [TextColor.RED]: {
-    key: TextColor.RED,
-    name: '빨간색',
-    color: '#ff0000',
-  },
-  [TextColor.ORANGE]: {
-    key: TextColor.ORANGE,
-    name: '주황색',
-    color: '#ffa500',
-  },
-  [TextColor.YELLOW]: {
-    key: TextColor.YELLOW,
-    name: '노란색',
-    color: '#ffff00',
-  },
-  [TextColor.GREEN]: {
-    key: TextColor.GREEN,
-    name: '초록색',
-    color: '#008000',
-  },
-  [TextColor.BLUE]: {
-    key: TextColor.BLUE,
-    name: '파란색',
-    color: '#0000ff',
-  },
-  [TextColor.PURPLE]: {
-    key: TextColor.PURPLE,
-    name: '보라색',
-    color: '#800080',
-  },
-  [TextColor.PINK]: {
-    key: TextColor.PINK,
-    name: '분홍색',
-    color: '#ffc0cb',
-  },
-  [TextColor.GRAY]: {
-    key: TextColor.GRAY,
-    name: '회색',
-    color: '#808080',
-  },
-  [TextColor.BROWN]: {
-    key: TextColor.BROWN,
-    name: '갈색',
-    color: '#a52a2a',
-  },
-} as const
+// 메뉴: 배경 색상
+export enum BackgroundColor {
+  WHITE = '#FFFFFF',
+  LIGHT_GRAY = '#E0E0E0',
+  BEIGE = '#F5F5DC',
+  CREAM = '#FFF8E7',
+  LAVENDER_BLUSH = '#FFF0F5',
+  LIGHT_BLUE = '#D7E3FC',
+  LIGHT_PINK = '#FCE4EC',
+  LIGHT_MINT = '#E7FFE7',
+  DARK_BROWN = '#4E342E',
+  DARK_GRAY = '#353535',
+  NAVY = '#162447',
+  DEEP_BLUE = '#1B1F3B',
+  CHARCOAL = '#1A1A1A',
+}

@@ -1,14 +1,15 @@
 'use client'
 
+import { Category } from '@/constants/menu'
 import { useState } from 'react'
+import { EffectMenu, FontMenu } from '../Menus'
+import BackgroundColorMenu from '../Menus/BackgroundColor'
+import TextColorMenu from '../Menus/TextColor'
 import Layout from './Layout'
 import Menu from './Menu'
 import TextInput from './TextInput'
-import { Category } from '@/constants/menu'
-import { EffectMenu, FontMenu } from '../Menus'
-import TextColorMenu from '../Menus/TextColor'
 
-const menus = [EffectMenu, TextColorMenu, FontMenu]
+const menus = [EffectMenu, TextColorMenu, FontMenu, BackgroundColorMenu]
 
 const Maker = () => {
   const [currentCategory, setCurrentCategory] = useState<Category>(

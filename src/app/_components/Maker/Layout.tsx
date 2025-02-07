@@ -19,7 +19,7 @@ const Layout = ({ children }: { children: ReactNode }) => (
       className="absolute bottom-1 left-1 z-10"
       style={{ width: '110px', height: 'auto' }}
     />
-    <div className="flex max-h-[60dvh] min-h-[500px] w-[400px] flex-1 flex-col bg-gray-0 p-10 shadow-[0_0_50px_rgba(0,0,0,0.15)]">
+    <div className="flex h-[60dvh] w-[400px] flex-1 flex-col bg-gray-0 p-10 shadow-[0_0_50px_rgba(0,0,0,0.15)]">
       {children}
     </div>
   </div>

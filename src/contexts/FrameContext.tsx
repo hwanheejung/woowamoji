@@ -1,14 +1,14 @@
 'use client'
 
 import { FontKey } from '@/constants'
-import { Effect } from '@/constants/menu'
+import { BackgroundColor, Effect, TextColor } from '@/constants/menu'
 import { ReactNode, createContext, useContext, useMemo, useState } from 'react'
 
 const DEFAULT_OPTIONS: FrameRenderOptions = {
   text: '안녕',
   fontFamily: FontKey.JUA,
-  color: '#000000',
-  backGroundColor: '#ffffff',
+  color: TextColor.BLACK,
+  backGroundColor: BackgroundColor.LIGHT_GRAY,
   position: { x: 0, y: 0 },
   opacity: 1,
   rotation: 0,

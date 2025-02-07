@@ -1,38 +1,30 @@
-import {
-  Category,
-  MENU_ITEM_INFO,
-  MenuItem,
-  TEXT_COLOR,
-  TextColor,
-} from '@/constants/menu'
+import { Category, MENU_ITEM_INFO, MenuItem, TextColor } from '@/constants/menu'
 import { useFrame } from '@/contexts/FrameContext'
 import { makeMenu } from '../Maker/Menu'
 import Wrapper from './Wrapper'
 
 const Component = () => (
   <Wrapper name={MENU_ITEM_INFO[MenuItem.TEXT_COLOR].name}>
-    <div className="mt-3 w-full overflow-hidden">
-      <div className="scrollbar-hide flex gap-1 overflow-x-scroll">
-        {Object.values(TextColor).map((type) => (
-          <Item key={type} type={type} />
-        ))}
-      </div>
+    <div className="mt-3 flex flex-wrap gap-1">
+      {Object.values(TextColor).map((color) => (
+        <Item key={color} color={color} />
+      ))}
     </div>
   </Wrapper>
 )
 
-const Item = ({ type }: { type: TextColor }) => {
+const Item = ({ color }: { color: TextColor }) => {
   const { color: currentColor, updateFrame } = useFrame()
 
   const handleSelect = () => {
-    updateFrame({ color: TEXT_COLOR[type].color })
+    updateFrame({ color })
   }
 
   return (
     <button
       onClick={handleSelect}
-      style={{ backgroundColor: TEXT_COLOR[type].color }}
-      className={`${currentColor !== TEXT_COLOR[type].color && 'opacity-40'} border-gray-900 h-7 w-7 shrink-0 rounded-full border-2`}
+      style={{ backgroundColor: color }}
+      className={`${currentColor !== color && 'opacity-40'} border-gray-900 h-7 w-7 shrink-0 rounded-full border-2`}
     />
   )
 }
