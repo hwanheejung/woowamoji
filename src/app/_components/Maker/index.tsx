@@ -5,9 +5,9 @@ import Layout from './Layout'
 import Menu from './Menu'
 import TextInput from './TextInput'
 import { Category } from '@/constants/menu'
-import EffectMenu from '../Menus/Effect'
+import { EffectMenu, FontMenu } from '../Menus'
 
-const menus = [EffectMenu]
+const menus = [EffectMenu, FontMenu]
 
 const Maker = () => {
   const [currentCategory, setCurrentCategory] = useState<Category>(

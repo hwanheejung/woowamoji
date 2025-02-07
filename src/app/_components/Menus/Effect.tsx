@@ -1,18 +1,16 @@
 import { Category, Effect, MENU_ITEM_INFO, MenuItem } from '@/constants/menu'
 import { useFrame } from '@/contexts/FrameContext'
 import { makeMenu } from '../Maker/Menu'
+import Wrapper from './Wrapper'
 
-const Component = () => {
-  return (
-    <div className="flex flex-1 flex-col items-start">
-      <p>{MENU_ITEM_INFO['effect'].name}</p>
-      <div className="flex flex-wrap gap-3">
-        <Item type={Effect.NONE} />
-        <Item type={Effect.BLINK} />
-      </div>
+const Component = () => (
+  <Wrapper name={MENU_ITEM_INFO[MenuItem.EFFECT].name}>
+    <div className="flex flex-wrap gap-3">
+      <Item type={Effect.NONE} />
+      <Item type={Effect.BLINK} />
     </div>
-  )
-}
+  </Wrapper>
+)
 
 const Item = ({ type }: { type: Effect }) => {
   const { effect: currentEffect, setEffect } = useFrame()
@@ -24,7 +22,7 @@ const Item = ({ type }: { type: Effect }) => {
   return (
     <button
       onClick={handleSelect}
-      className={currentEffect === type ? 'text-gray-900' : 'text-gray-300'}
+      className={currentEffect !== type ? 'opacity-40' : ''}
     >
       {type}
     </button>
