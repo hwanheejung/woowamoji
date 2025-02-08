@@ -1,6 +1,6 @@
 import { FrameRenderOptions } from '@/contexts/FrameContext'
-import renderFrame from '@/utils/renderFrame'
 import { Timer } from '@/utils/types'
+import { renderFrame } from '../_utils'
 
 const DELAY = 500
 

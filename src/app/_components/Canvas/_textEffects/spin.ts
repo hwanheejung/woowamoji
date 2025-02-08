@@ -1,5 +1,5 @@
 import { FrameRenderOptions } from '@/contexts/FrameContext'
-import renderFrame from '@/utils/renderFrame'
+import { renderFrame } from '../_utils'
 
 const DURATION = 2000 // 한 바퀴 도는 시간
 const FULL_ROTATION = 360 // 360도 회전

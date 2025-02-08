@@ -1,5 +1,5 @@
 import { FrameRenderOptions } from '@/contexts/FrameContext'
-import renderFrame from '@/utils/renderFrame'
+import { renderFrame } from '../_utils'
 
 const DURATION = 300
 const SHAKE_INTENSITY = 2 // 흔들리는 범위 (px)

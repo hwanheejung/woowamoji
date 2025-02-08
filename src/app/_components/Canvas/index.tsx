@@ -1,11 +1,11 @@
 'use client'
 
 import { useFrame } from '@/contexts/FrameContext'
-import loadBackground from '@/utils/loadBackground'
 import { HTMLAttributes, useEffect, useRef } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { useCanvas } from './_hooks/useCanvas'
 import { useEffectHandler } from './_hooks/useEffectHandler'
+import { loadBackground } from './_utils'
 
 const CANVAS_SIZE = 50
 

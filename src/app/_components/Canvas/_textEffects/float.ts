@@ -1,5 +1,5 @@
 import { FrameRenderOptions } from '@/contexts/FrameContext'
-import renderFrame from '@/utils/renderFrame'
+import { renderFrame } from '../_utils'
 
 const DURATION = 2000
 
