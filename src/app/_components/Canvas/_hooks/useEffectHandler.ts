@@ -1,5 +1,13 @@
 import { useFrame } from '@/contexts/FrameContext'
-import { blink, bounce, float, pulse, shake, spin, wobble } from '@/effects'
+import {
+  blink,
+  bounce,
+  float,
+  pulse,
+  shake,
+  spin,
+  wobble,
+} from '../_textEffects'
 import renderFrame from '@/utils/renderFrame'
 import { useCallback, useMemo, useRef } from 'react'
 

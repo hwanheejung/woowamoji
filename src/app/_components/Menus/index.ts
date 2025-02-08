@@ -1,4 +1,4 @@
-export { default as EffectMenu } from './Effect'
+export { default as TextEffectMenu } from './TextEffect'
 export { default as FontMenu } from './Font'
 export { default as TextColorMenu } from './TextColor'
 export { default as BackgroundColorMenu } from './BackgroundColor'

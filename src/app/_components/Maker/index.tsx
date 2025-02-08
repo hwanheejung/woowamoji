@@ -5,16 +5,16 @@ import { useState } from 'react'
 import {
   BackgroundColorMenu,
   BackgroundThemeMenu,
-  EffectMenu,
   FontMenu,
   TextColorMenu,
+  TextEffectMenu,
 } from '../Menus'
 import Layout from './Layout'
 import Menu from './Menu'
 import TextInput from './TextInput'
 
 const menus = [
-  EffectMenu,
+  TextEffectMenu,
   TextColorMenu,
   FontMenu,
   BackgroundColorMenu,

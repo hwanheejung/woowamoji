@@ -31,6 +31,10 @@ const Item = ({ type }: { type: TextEffect }) => {
   )
 }
 
-const EffectMenu = makeMenu(Category.TYPE, SubCategory.TEXT_EFFECT, Component)
+const TextEffectMenu = makeMenu(
+  Category.TYPE,
+  SubCategory.TEXT_EFFECT,
+  Component,
+)
 
-export default EffectMenu
+export default TextEffectMenu
