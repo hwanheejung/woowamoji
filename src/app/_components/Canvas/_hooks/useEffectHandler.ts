@@ -15,12 +15,12 @@ export const useEffectHandler = (
   contextRef: React.RefObject<CanvasRenderingContext2D | null>,
   canvasSize: number,
 ) => {
-  const { text, fontFamily, color, backGroundColor, effect } = useFrame()
+  const { text, fontFamily, color, effect } = useFrame()
   const effectCleanupRef = useRef<(() => void) | null>(null)
 
   const frameOptions = useMemo(
-    () => ({ text, fontFamily, color, backGroundColor }),
-    [text, fontFamily, color, backGroundColor],
+    () => ({ text, fontFamily, color, effect }),
+    [text, fontFamily, color, effect],
   )
 
   const effectHandlers: Record<
@@ -54,7 +54,7 @@ export const useEffectHandler = (
       effectCleanupRef.current =
         effectHandlers[effect]?.(ctx, canvasSize, frameOptions) ?? null
     }
-  }, [contextRef, effect, frameOptions])
+  }, [contextRef, frameOptions])
 
-  return { applyEffect, effect, frameOptions }
+  return { applyEffect, frameOptions }
 }

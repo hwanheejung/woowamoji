@@ -22,7 +22,7 @@ const Canvas = (props: CanvasProps) => {
   const mainCanvasRef = useRef<HTMLCanvasElement>(null)
   const { contextRef: mainContextRef, initializeCanvas: initializeMainCanvas } =
     useCanvas(mainCanvasRef)
-  const { applyEffect, effect, frameOptions } = useEffectHandler(
+  const { applyEffect, frameOptions } = useEffectHandler(
     mainContextRef,
     CANVAS_SIZE,
   )
@@ -33,8 +33,10 @@ const Canvas = (props: CanvasProps) => {
   }, [initializeMainCanvas, initializeBgCanvas])
 
   useEffect(() => {
-    if (!bgContextRef.current) return
-    loadBackground(bgContextRef.current, CANVAS_SIZE, {
+    const bgCtx = bgContextRef.current
+    if (!bgCtx) return
+
+    loadBackground(bgCtx, CANVAS_SIZE, {
       backGroundColor,
       backgroundTheme,
     })
@@ -42,12 +44,12 @@ const Canvas = (props: CanvasProps) => {
 
   useEffect(() => {
     applyEffect()
-  }, [effect, frameOptions])
+  }, [frameOptions])
 
   return (
     <div
       className={twMerge(
-        'z-10 h-full w-full overflow-hidden rounded-lg border-[1px]',
+        'z-10 h-full w-full overflow-hidden border-[1px]',
         props.className,
       )}
     >
