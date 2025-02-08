@@ -2,25 +2,25 @@ import { CATEGORY, Category, MENU_MAP, SubCategory } from '@/constants/menu'
 import { Dispatch, SetStateAction } from 'react'
 
 export const makeMenu = <C extends keyof typeof MENU_MAP>(
-  categoryKey: C,
-  menuItemKey: Extract<(typeof MENU_MAP)[C][number], SubCategory>,
+  category: C,
+  subCategory: Extract<(typeof MENU_MAP)[C][number], SubCategory>,
   Component: React.FC,
 ) => {
   return {
-    category: categoryKey,
-    menuItem: menuItemKey,
+    category,
+    subCategory,
     Component,
   }
 }
 
-interface MenuItemData {
+interface MenuData {
   category: Category
-  menuItem: SubCategory
+  subCategory: SubCategory
   Component: React.FC
 }
 
 interface MenuProps {
-  menus: MenuItemData[]
+  menus: MenuData[]
   currentCategory: Category
   setCurrentCategory: Dispatch<SetStateAction<Category>>
 }
@@ -49,12 +49,12 @@ const Menu = ({ menus, currentCategory, setCurrentCategory }: MenuProps) => {
         })}
       </nav>
 
-      {/* 현재 카테고리에 해당하는 메뉴 컴포넌트 렌더링 */}
+      {/* 현재 카테고리에 해당하는 서브 카테고리 렌더링 */}
       <section className="scrollbar-hide flex w-full flex-1 flex-col justify-start gap-5 overflow-y-scroll pb-10 pt-5">
         {menus
           .filter((menu) => menu.category === currentCategory)
-          .map(({ menuItem, Component }) => (
-            <Component key={menuItem} />
+          .map(({ subCategory, Component }) => (
+            <Component key={subCategory} />
           ))}
       </section>
     </div>
