@@ -2,14 +2,24 @@
 
 import { Category } from '@/constants/menu'
 import { useState } from 'react'
-import { EffectMenu, FontMenu } from '../Menus'
-import BackgroundColorMenu from '../Menus/BackgroundColor'
-import TextColorMenu from '../Menus/TextColor'
+import {
+  BackgroundColorMenu,
+  BackgroundThemeMenu,
+  EffectMenu,
+  FontMenu,
+  TextColorMenu,
+} from '../Menus'
 import Layout from './Layout'
 import Menu from './Menu'
 import TextInput from './TextInput'
 
-const menus = [EffectMenu, TextColorMenu, FontMenu, BackgroundColorMenu]
+const menus = [
+  EffectMenu,
+  TextColorMenu,
+  FontMenu,
+  BackgroundColorMenu,
+  BackgroundThemeMenu,
+]
 
 const Maker = () => {
   const [currentCategory, setCurrentCategory] = useState<Category>(

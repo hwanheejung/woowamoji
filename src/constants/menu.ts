@@ -10,9 +10,15 @@ export enum MenuItem {
   FONT = 'font',
   TEXT_COLOR = 'color',
   BACKGROUND_COLOR = 'backgroundColor',
+  BACKGROUND_THEME = 'backgroundTheme',
 }
 
-export const CATEGORY_INFO = {
+interface ItemInfo {
+  key: Category | MenuItem
+  name: string
+}
+
+export const CATEGORY_INFO: Record<Category, ItemInfo> = {
   [Category.TYPE]: {
     key: Category.TYPE,
     name: '타입',
@@ -27,7 +33,7 @@ export const CATEGORY_INFO = {
   },
 }
 
-export const MENU_ITEM_INFO = {
+export const MENU_ITEM_INFO: Record<MenuItem, ItemInfo> = {
   [MenuItem.SIZE]: {
     key: MenuItem.SIZE,
     name: '크기',
@@ -48,12 +54,16 @@ export const MENU_ITEM_INFO = {
     key: MenuItem.BACKGROUND_COLOR,
     name: '배경색',
   },
+  [MenuItem.BACKGROUND_THEME]: {
+    key: MenuItem.BACKGROUND_THEME,
+    name: '테마',
+  },
 }
 
 export const MENU = {
   [Category.TYPE]: [MenuItem.SIZE, MenuItem.EFFECT],
   [Category.TEXT]: [MenuItem.FONT, MenuItem.TEXT_COLOR],
-  [Category.BACKGROUND]: [MenuItem.BACKGROUND_COLOR],
+  [Category.BACKGROUND]: [MenuItem.BACKGROUND_COLOR, MenuItem.BACKGROUND_THEME],
 } as const
 
 // 메뉴: 효과
@@ -66,8 +76,8 @@ export enum Effect {
   FLOAT = 'float',
   SHAKE = 'shake',
   BOUNCE = 'bounce',
-  SLIDE_LEFT_RIGHT = 'slideLeftRight',
-  SLIDE_UP = 'slideUp',
+  // SLIDE_LEFT_RIGHT = 'slideLeftRight',
+  // SLIDE_UP = 'slideUp',
 }
 
 // 메뉴: 텍스트 색상
@@ -100,4 +110,35 @@ export enum BackgroundColor {
   NAVY = '#162447',
   DEEP_BLUE = '#1B1F3B',
   CHARCOAL = '#1A1A1A',
+}
+
+// 메뉴: 배경 테마
+export type BackgroundTheme = 'B-0' | 'B-1' | 'B-2' | 'B-3' | 'B-4'
+
+interface BackgroundThemeInfo {
+  key: BackgroundTheme
+  name: string
+}
+
+export const BACKGROUND_THEME: Record<BackgroundTheme, BackgroundThemeInfo> = {
+  'B-0': {
+    key: 'B-0',
+    name: '눈사람',
+  },
+  'B-1': {
+    key: 'B-1',
+    name: '대왕 입',
+  },
+  'B-2': {
+    key: 'B-2',
+    name: '네잎클로버',
+  },
+  'B-3': {
+    key: 'B-3',
+    name: '숲',
+  },
+  'B-4': {
+    key: 'B-4',
+    name: '하트 리본',
+  },
 }

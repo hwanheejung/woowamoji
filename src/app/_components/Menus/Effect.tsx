@@ -6,14 +6,9 @@ import Wrapper from './Wrapper'
 const Component = () => (
   <Wrapper name={MENU_ITEM_INFO[MenuItem.EFFECT].name}>
     <div className="flex flex-wrap gap-3">
-      <Item type={Effect.NONE} />
-      <Item type={Effect.BLINK} />
-      <Item type={Effect.PULSE} />
-      <Item type={Effect.WOBBLE} />
-      <Item type={Effect.SPIN} />
-      <Item type={Effect.FLOAT} />
-      <Item type={Effect.SHAKE} />
-      <Item type={Effect.BOUNCE} />
+      {Object.values(Effect).map((effect) => (
+        <Item key={effect} type={effect} />
+      ))}
     </div>
   </Wrapper>
 )

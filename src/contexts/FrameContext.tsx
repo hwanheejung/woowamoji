@@ -1,7 +1,12 @@
 'use client'
 
 import { FontKey } from '@/constants'
-import { BackgroundColor, Effect, TextColor } from '@/constants/menu'
+import {
+  BackgroundColor,
+  BackgroundTheme,
+  Effect,
+  TextColor,
+} from '@/constants/menu'
 import { ReactNode, createContext, useContext, useMemo, useState } from 'react'
 
 const DEFAULT_OPTIONS: FrameRenderOptions = {
@@ -9,6 +14,7 @@ const DEFAULT_OPTIONS: FrameRenderOptions = {
   fontFamily: FontKey.JUA,
   color: TextColor.BLACK,
   backGroundColor: BackgroundColor.LIGHT_GRAY,
+  backgroundTheme: 'B-0',
   position: { x: 0, y: 0 },
   opacity: 1,
   rotation: 0,
@@ -20,6 +26,7 @@ export interface FrameRenderOptions {
   fontFamily?: FontKey
   color?: `#${string}`
   backGroundColor?: `#${string}`
+  backgroundTheme?: BackgroundTheme
   position?: { x: number; y: number }
   opacity?: number
   rotation?: number
