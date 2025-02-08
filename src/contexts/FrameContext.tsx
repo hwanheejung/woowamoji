@@ -9,24 +9,27 @@ import {
 } from '@/constants'
 import { ReactNode, createContext, useContext, useMemo, useState } from 'react'
 
-const DEFAULT_OPTIONS: FrameRenderOptions = {
+export const DEFAULT_OPTIONS: FrameRenderOptions = {
   text: '안녕',
   fontFamily: Font.JUA,
   color: TextColor.BLACK,
   backGroundColor: BackgroundColor.LIGHT_GRAY,
-  backgroundTheme: 'B-0',
+  backgroundTheme: undefined,
   position: { x: 0, y: 0 },
   opacity: 1,
   rotation: 0,
   scale: 1,
 }
 
-export interface FrameRenderOptions {
+export interface BackgroundRenderOptions {
+  backGroundColor?: `#${string}`
+  backgroundTheme?: BackgroundTheme
+}
+
+export interface FrameRenderOptions extends BackgroundRenderOptions {
   text?: string
   fontFamily?: Font
   color?: `#${string}`
-  backGroundColor?: `#${string}`
-  backgroundTheme?: BackgroundTheme
   position?: { x: number; y: number }
   opacity?: number
   rotation?: number

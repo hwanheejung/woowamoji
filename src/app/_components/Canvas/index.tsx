@@ -1,23 +1,68 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useFrame } from '@/contexts/FrameContext'
+import loadBackground from '@/utils/loadBackground'
+import { HTMLAttributes, useEffect, useRef } from 'react'
+import { twMerge } from 'tailwind-merge'
 import { useCanvas } from './_hooks/useCanvas'
 import { useEffectHandler } from './_hooks/useEffectHandler'
 
-const Canvas = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const { contextRef, initializeCanvas } = useCanvas(canvasRef)
-  const { applyEffect, effect, frameOptions } = useEffectHandler(contextRef)
+const CANVAS_SIZE = 50
+
+interface CanvasProps {
+  className?: HTMLAttributes<HTMLDivElement>['className']
+}
+
+const Canvas = (props: CanvasProps) => {
+  const backgroundCanvasRef = useRef<HTMLCanvasElement>(null)
+  const { contextRef: bgContextRef, initializeCanvas: initializeBgCanvas } =
+    useCanvas(backgroundCanvasRef)
+  const { backGroundColor, backgroundTheme } = useFrame()
+
+  const mainCanvasRef = useRef<HTMLCanvasElement>(null)
+  const { contextRef: mainContextRef, initializeCanvas: initializeMainCanvas } =
+    useCanvas(mainCanvasRef)
+  const { applyEffect, effect, frameOptions } = useEffectHandler(
+    mainContextRef,
+    CANVAS_SIZE,
+  )
 
   useEffect(() => {
-    initializeCanvas()
-  }, [initializeCanvas])
+    initializeBgCanvas()
+    initializeMainCanvas()
+  }, [initializeMainCanvas, initializeBgCanvas])
+
+  useEffect(() => {
+    if (!bgContextRef.current) return
+    loadBackground(bgContextRef.current, CANVAS_SIZE, {
+      backGroundColor,
+      backgroundTheme,
+    })
+  }, [backGroundColor, backgroundTheme])
 
   useEffect(() => {
     applyEffect()
   }, [effect, frameOptions])
 
-  return <canvas id="canvas" ref={canvasRef} className="rounded-lg" />
+  return (
+    <div
+      className={twMerge(
+        'z-10 h-full w-full overflow-hidden rounded-lg border-[1px]',
+        props.className,
+      )}
+    >
+      <canvas
+        id="backgroundCanvas"
+        ref={backgroundCanvasRef}
+        className="absolute left-0 top-0 -z-10"
+      />
+      <canvas
+        id="canvas"
+        ref={mainCanvasRef}
+        className="absolute left-0 top-0"
+      />
+    </div>
+  )
 }
 
 export default Canvas

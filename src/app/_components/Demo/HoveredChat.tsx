@@ -14,8 +14,8 @@ const HoveredChat = ({ children }: { children: ReactNode }) => {
   return (
     <div className="relative">
       <EmojiContainer>
-        <button className="absolute bottom-2 left-3">
-          <Canvas />
+        <button className="absolute bottom-2 left-3 h-[50px] w-[50px]">
+          <Canvas className="absolute left-0 top-0" />
         </button>
         <button>
           <span>👍</span>

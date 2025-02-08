@@ -1,4 +1,8 @@
-import { FrameRenderOptions } from '@/contexts/FrameContext'
+import { Font, TextColor } from '@/constants'
+import {
+  BackgroundRenderOptions,
+  FrameRenderOptions,
+} from '@/contexts/FrameContext'
 
 interface Dimensions {
   x: number
@@ -10,21 +14,8 @@ interface Dimensions {
 type RenderFrame = (
   context: CanvasRenderingContext2D,
   canvasSize: number,
-  options: FrameRenderOptions,
+  options: Omit<FrameRenderOptions, keyof BackgroundRenderOptions>,
 ) => Dimensions
-
-const applyBackground = (
-  ctx: CanvasRenderingContext2D,
-  canvasSize: number,
-  backGroundColor?: string,
-) => {
-  if (backGroundColor) {
-    ctx.fillStyle = backGroundColor
-    ctx.fillRect(0, 0, canvasSize, canvasSize)
-  } else {
-    ctx.clearRect(0, 0, canvasSize, canvasSize)
-  }
-}
 
 const applyStyles = (
   ctx: CanvasRenderingContext2D,
@@ -104,18 +95,17 @@ const calculateDimensions = (
 const renderFrame: RenderFrame = (context, canvasSize, options) => {
   const {
     text = '',
-    fontFamily = 'euljiro',
-    color = '#000000',
-    backGroundColor = '#4AFFF8',
+    fontFamily = Font.JUA,
+    color = TextColor.BLACK,
     position = { x: 0, y: 0 },
     opacity = 1,
     rotation = 0,
     scale = 1,
   } = options
 
+  context.clearRect(0, 0, canvasSize, canvasSize)
   context.save()
 
-  applyBackground(context, canvasSize, backGroundColor)
   context.translate(canvasSize / 2, canvasSize / 2) // 중심 이동
   applyStyles(context, color, opacity, position, rotation, scale)
   context.translate(-canvasSize / 2, -canvasSize / 2) // 원래 위치로 이동

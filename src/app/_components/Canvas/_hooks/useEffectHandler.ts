@@ -1,4 +1,6 @@
 import { useFrame } from '@/contexts/FrameContext'
+import renderFrame from '@/utils/renderFrame'
+import { useCallback, useMemo, useRef } from 'react'
 import {
   blink,
   bounce,
@@ -8,13 +10,10 @@ import {
   spin,
   wobble,
 } from '../_textEffects'
-import renderFrame from '@/utils/renderFrame'
-import { useCallback, useMemo, useRef } from 'react'
-
-const CANVAS_SIZE = 50
 
 export const useEffectHandler = (
   contextRef: React.RefObject<CanvasRenderingContext2D | null>,
+  canvasSize: number,
 ) => {
   const { text, fontFamily, color, backGroundColor, effect } = useFrame()
   const effectCleanupRef = useRef<(() => void) | null>(null)
@@ -50,10 +49,10 @@ export const useEffectHandler = (
     if (!ctx) return
 
     if (effect === 'none') {
-      renderFrame(ctx, CANVAS_SIZE, frameOptions)
+      renderFrame(ctx, canvasSize, frameOptions)
     } else {
       effectCleanupRef.current =
-        effectHandlers[effect]?.(ctx, CANVAS_SIZE, frameOptions) ?? null
+        effectHandlers[effect]?.(ctx, canvasSize, frameOptions) ?? null
     }
   }, [contextRef, effect, frameOptions])
 

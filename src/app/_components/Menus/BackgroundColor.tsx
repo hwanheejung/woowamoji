@@ -22,14 +22,14 @@ const Item = ({ color }: { color: BackgroundColor }) => {
   const { backGroundColor: currentColor, updateFrame } = useFrame()
 
   const handleSelect = () => {
-    updateFrame({ backGroundColor: color })
+    updateFrame({ backGroundColor: color, backgroundTheme: undefined })
   }
 
   return (
     <button
       onClick={handleSelect}
       style={{ backgroundColor: color }}
-      className={`${currentColor !== color && 'opacity-40'} border-gray-900 h-7 w-7 shrink-0 rounded-lg border-2`}
+      className={`${currentColor !== color && 'opacity-40'} h-7 w-7 shrink-0 rounded-lg border-2 border-gray-900`}
     />
   )
 }

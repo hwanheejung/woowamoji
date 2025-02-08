@@ -18,30 +18,30 @@ export enum BackgroundColor {
 // THEME
 export type BackgroundTheme = 'B-0' | 'B-1' | 'B-2' | 'B-3' | 'B-4'
 
-interface BackgroundThemeInfo {
-  key: BackgroundTheme
+export interface BackgroundThemeInfo {
+  theme: BackgroundTheme
   name: string
 }
 
 export const BACKGROUND_THEME: Record<BackgroundTheme, BackgroundThemeInfo> = {
   'B-0': {
-    key: 'B-0',
+    theme: 'B-0',
     name: '눈사람',
   },
   'B-1': {
-    key: 'B-1',
+    theme: 'B-1',
     name: '대왕 입',
   },
   'B-2': {
-    key: 'B-2',
+    theme: 'B-2',
     name: '네잎클로버',
   },
   'B-3': {
-    key: 'B-3',
+    theme: 'B-3',
     name: '숲',
   },
   'B-4': {
-    key: 'B-4',
+    theme: 'B-4',
     name: '하트 리본',
   },
 }
