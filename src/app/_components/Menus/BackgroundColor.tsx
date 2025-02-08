@@ -1,15 +1,15 @@
 import {
   BackgroundColor,
   Category,
-  MENU_ITEM_INFO,
-  MenuItem,
-} from '@/constants/menu'
+  SUB_CATEGORY,
+  SubCategory,
+} from '@/constants'
 import { useFrame } from '@/contexts/FrameContext'
 import { makeMenu } from '../Maker/Menu'
 import Wrapper from './Wrapper'
 
 const Component = () => (
-  <Wrapper name={MENU_ITEM_INFO[MenuItem.BACKGROUND_COLOR].name}>
+  <Wrapper name={SUB_CATEGORY[SubCategory.BACKGROUND_COLOR].name}>
     <div className="mt-3 flex flex-wrap gap-1">
       {Object.values(BackgroundColor).map((color) => (
         <Item key={color} color={color} />
@@ -36,7 +36,7 @@ const Item = ({ color }: { color: BackgroundColor }) => {
 
 const BackgroundColorMenu = makeMenu(
   Category.BACKGROUND,
-  MenuItem.BACKGROUND_COLOR,
+  SubCategory.BACKGROUND_COLOR,
   Component,
 )
 

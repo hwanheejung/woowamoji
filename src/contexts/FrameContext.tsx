@@ -1,17 +1,17 @@
 'use client'
 
-import { FontKey } from '@/constants'
 import {
+  Font,
+  TextEffect,
   BackgroundColor,
   BackgroundTheme,
-  Effect,
   TextColor,
-} from '@/constants/menu'
+} from '@/constants'
 import { ReactNode, createContext, useContext, useMemo, useState } from 'react'
 
 const DEFAULT_OPTIONS: FrameRenderOptions = {
   text: '안녕',
-  fontFamily: FontKey.JUA,
+  fontFamily: Font.JUA,
   color: TextColor.BLACK,
   backGroundColor: BackgroundColor.LIGHT_GRAY,
   backgroundTheme: 'B-0',
@@ -23,7 +23,7 @@ const DEFAULT_OPTIONS: FrameRenderOptions = {
 
 export interface FrameRenderOptions {
   text?: string
-  fontFamily?: FontKey
+  fontFamily?: Font
   color?: `#${string}`
   backGroundColor?: `#${string}`
   backgroundTheme?: BackgroundTheme
@@ -34,8 +34,8 @@ export interface FrameRenderOptions {
 }
 
 interface FrameContextValue extends FrameRenderOptions {
-  effect: Effect
-  setEffect: (effect: Effect) => void
+  effect: TextEffect
+  setEffect: (effect: TextEffect) => void
   updateFrame: (options: Partial<FrameRenderOptions>) => void
   resetFrame: () => void
 }
@@ -50,7 +50,7 @@ export const FrameContextProvider = ({
   children,
 }: FrameContextProviderProps) => {
   const [frame, setFrame] = useState<FrameRenderOptions>(DEFAULT_OPTIONS)
-  const [effect, setEffect] = useState<Effect>(Effect.NONE)
+  const [effect, setEffect] = useState<TextEffect>(TextEffect.NONE)
 
   // 업데이트 함수 (부분 업데이트 지원)
   const updateFrame = (options: Partial<FrameRenderOptions>) => {

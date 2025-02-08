@@ -1,9 +1,9 @@
-import { CATEGORY_INFO, Category, MENU, MenuItem } from '@/constants/menu'
+import { CATEGORY, Category, MENU_MAP, SubCategory } from '@/constants/menu'
 import { Dispatch, SetStateAction } from 'react'
 
-export const makeMenu = <C extends keyof typeof MENU>(
+export const makeMenu = <C extends keyof typeof MENU_MAP>(
   categoryKey: C,
-  menuItemKey: Extract<(typeof MENU)[C][number], MenuItem>,
+  menuItemKey: Extract<(typeof MENU_MAP)[C][number], SubCategory>,
   Component: React.FC,
 ) => {
   return {
@@ -15,7 +15,7 @@ export const makeMenu = <C extends keyof typeof MENU>(
 
 interface MenuItemData {
   category: Category
-  menuItem: MenuItem
+  menuItem: SubCategory
   Component: React.FC
 }
 
@@ -31,7 +31,7 @@ const Menu = ({ menus, currentCategory, setCurrentCategory }: MenuProps) => {
       {/* 카테고리 선택 버튼 */}
       <nav className="flex items-center">
         {Object.values(Category).map((category) => {
-          const { key, name } = CATEGORY_INFO[category]
+          const { key, name } = CATEGORY[category]
 
           return (
             <button

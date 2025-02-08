@@ -2,16 +2,16 @@ import {
   BACKGROUND_THEME,
   BackgroundTheme,
   Category,
-  MENU_ITEM_INFO,
-  MenuItem,
-} from '@/constants/menu'
+  SUB_CATEGORY,
+  SubCategory,
+} from '@/constants'
 import { useFrame } from '@/contexts/FrameContext'
 import Image from 'next/image'
 import { makeMenu } from '../Maker/Menu'
 import Wrapper from './Wrapper'
 
 const Component = () => (
-  <Wrapper name={MENU_ITEM_INFO[MenuItem.BACKGROUND_THEME].name}>
+  <Wrapper name={SUB_CATEGORY[SubCategory.BACKGROUND_THEME].name}>
     <div className="mt-3 flex flex-wrap gap-1">
       {Object.entries(BACKGROUND_THEME).map(([theme]) => (
         <Item key={theme} theme={theme as BackgroundTheme} />
@@ -46,7 +46,7 @@ const Item = ({ theme }: { theme: BackgroundTheme }) => {
 
 const BackgroundThemeMenu = makeMenu(
   Category.BACKGROUND,
-  MenuItem.BACKGROUND_THEME,
+  SubCategory.BACKGROUND_THEME,
   Component,
 )
 

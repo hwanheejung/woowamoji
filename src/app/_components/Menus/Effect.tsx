@@ -1,19 +1,20 @@
-import { Category, Effect, MENU_ITEM_INFO, MenuItem } from '@/constants/menu'
+import { Category, SUB_CATEGORY, SubCategory } from '@/constants/menu'
 import { useFrame } from '@/contexts/FrameContext'
 import { makeMenu } from '../Maker/Menu'
 import Wrapper from './Wrapper'
+import { TextEffect } from '@/constants'
 
 const Component = () => (
-  <Wrapper name={MENU_ITEM_INFO[MenuItem.EFFECT].name}>
+  <Wrapper name={SUB_CATEGORY[SubCategory.TEXT_EFFECT].name}>
     <div className="flex flex-wrap gap-3">
-      {Object.values(Effect).map((effect) => (
+      {Object.values(TextEffect).map((effect) => (
         <Item key={effect} type={effect} />
       ))}
     </div>
   </Wrapper>
 )
 
-const Item = ({ type }: { type: Effect }) => {
+const Item = ({ type }: { type: TextEffect }) => {
   const { effect: currentEffect, setEffect } = useFrame()
 
   const handleSelect = () => {
@@ -30,6 +31,6 @@ const Item = ({ type }: { type: Effect }) => {
   )
 }
 
-const EffectMenu = makeMenu(Category.TYPE, MenuItem.EFFECT, Component)
+const EffectMenu = makeMenu(Category.TYPE, SubCategory.TEXT_EFFECT, Component)
 
 export default EffectMenu

@@ -1,20 +1,20 @@
-import { FONTS, FontKey } from '@/constants'
-import { Category, MENU_ITEM_INFO, MenuItem } from '@/constants/menu'
+import { FONTS, Font } from '@/constants'
+import { Category, SUB_CATEGORY, SubCategory } from '@/constants/menu'
 import { useFrame } from '@/contexts/FrameContext'
 import { makeMenu } from '../Maker/Menu'
 import Wrapper from './Wrapper'
 
 const Component = () => (
-  <Wrapper name={MENU_ITEM_INFO[MenuItem.FONT].name}>
+  <Wrapper name={SUB_CATEGORY[SubCategory.FONT_FAMILY].name}>
     <div className="mt-3 flex flex-wrap gap-2">
-      {Object.values(FontKey).map((type) => (
+      {Object.values(Font).map((type) => (
         <Item key={type} type={type} />
       ))}
     </div>
   </Wrapper>
 )
 
-const Item = ({ type }: { type: FontKey }) => {
+const Item = ({ type }: { type: Font }) => {
   const { fontFamily: currentFont, updateFrame } = useFrame()
 
   const handleSelect = () => {
@@ -32,6 +32,6 @@ const Item = ({ type }: { type: FontKey }) => {
   )
 }
 
-const FontMenu = makeMenu(Category.TEXT, MenuItem.FONT, Component)
+const FontMenu = makeMenu(Category.TEXT, SubCategory.FONT_FAMILY, Component)
 
 export default FontMenu

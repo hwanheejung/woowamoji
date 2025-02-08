@@ -1,4 +1,5 @@
-export enum FontKey {
+// FONT
+export enum Font {
   KKUBULIM = 'kkubulim',
   EULJIRO_ORAEORAE = 'euljiroOraeorae',
   EULJIRO_10YEARSLATER = 'euljiro10yearsLater',
@@ -15,11 +16,11 @@ export enum FontKey {
 type FontInfo = {
   name: string
   src: string
-  variable: `--font-${FontKey}`
+  variable: `--font-${Font}`
 }
 
-const generateFontName = (key: FontKey): string => {
-  const mapping: Record<FontKey, string> = {
+const generateFontName = (key: Font): string => {
+  const mapping: Record<Font, string> = {
     kkubulim: '꾸불림체',
     euljiroOraeorae: '을지로 오래오래체',
     euljiro10yearsLater: '을지로 10년후체',
@@ -35,8 +36,8 @@ const generateFontName = (key: FontKey): string => {
   return mapping[key]
 }
 
-const generateFontSrc = (key: FontKey): string => {
-  const mapping: Record<FontKey, string> = {
+const generateFontSrc = (key: Font): string => {
+  const mapping: Record<Font, string> = {
     kkubulim: 'BMKkubulim.otf',
     euljiroOraeorae: 'BMEuljirooraeoraeOTF.otf',
     euljiro10yearsLater: 'BMEuljiro10yearslaterOTF.otf',
@@ -52,14 +53,29 @@ const generateFontSrc = (key: FontKey): string => {
   return mapping[key]
 }
 
-export const FONTS: Record<FontKey, FontInfo> = Object.values(FontKey).reduce(
+export const FONTS: Record<Font, FontInfo> = Object.values(Font).reduce(
   (acc, key) => {
-    acc[key as FontKey] = {
+    acc[key as Font] = {
       name: generateFontName(key),
       src: `/fonts/${generateFontSrc(key)}`,
       variable: `--font-${key}`,
     }
     return acc
   },
-  {} as Record<FontKey, FontInfo>,
+  {} as Record<Font, FontInfo>,
 )
+
+// TEXT_COLOR
+export enum TextColor {
+  BLACK = '#1A1A1A',
+  WHITE = '#FFFFFF',
+  RED = '#E63946',
+  ORANGE = '#FF9000',
+  YELLOW = '#FFF500',
+  GREEN = '#00E431',
+  BLUE = '#0094FF',
+  PURPLE = '#A236FF',
+  PINK = '#FF3589',
+  GRAY = '#7F7F7F',
+  BROWN = '#8B5A2B',
+}
