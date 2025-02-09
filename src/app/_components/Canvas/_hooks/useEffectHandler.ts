@@ -1,9 +1,11 @@
 import { useFrame } from '@/contexts/FrameContext'
 import { useCallback, useMemo, useRef } from 'react'
 import {
+  EffectArgs,
   blink,
   bounce,
   float,
+  oneByOne,
   pulse,
   shake,
   spin,
@@ -23,14 +25,7 @@ export const useEffectHandler = (
     [text, fontFamily, color, effect],
   )
 
-  const effectHandlers: Record<
-    string,
-    (
-      ctx: CanvasRenderingContext2D,
-      size: number,
-      options: typeof frameOptions,
-    ) => (() => void) | void
-  > = {
+  const effectHandlers: Record<string, EffectArgs> = {
     blink,
     pulse,
     wobble,
@@ -38,6 +33,7 @@ export const useEffectHandler = (
     float,
     shake,
     bounce,
+    oneByOne,
   }
 
   const applyEffect = useCallback(() => {

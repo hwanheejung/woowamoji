@@ -1,5 +1,6 @@
 import { FrameRenderOptions } from '@/contexts/FrameContext'
 import { renderFrame } from '../_utils'
+import { EffectArgs } from '.'
 
 const DURATION = 2000 // 한 바퀴 도는 시간
 const FULL_ROTATION = 360 // 360도 회전
@@ -11,13 +12,7 @@ type Animate = (
   startTime: number,
 ) => void
 
-type Spinner = (
-  context: CanvasRenderingContext2D,
-  canvasSize: number,
-  frameOptions: FrameRenderOptions,
-) => () => void
-
-const createSpinner = (): Spinner => {
+const createSpinner = (): EffectArgs => {
   let timer: number | null = null
 
   const animate: Animate = (context, canvasSize, frameOptions, startTime) => {

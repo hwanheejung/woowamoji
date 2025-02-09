@@ -1,4 +1,5 @@
 import { FrameRenderOptions } from '@/contexts/FrameContext'
+import { EffectArgs } from '.'
 import { renderFrame } from '../_utils'
 
 const DURATION = 1200
@@ -12,13 +13,7 @@ type Animate = (
   startTime: number,
 ) => void
 
-type Wobbler = (
-  context: CanvasRenderingContext2D,
-  canvasSize: number,
-  frameOptions: FrameRenderOptions,
-) => () => void
-
-const createWobbler = (): Wobbler => {
+const createWobbler = (): EffectArgs => {
   let timer: number | null = null
 
   const animate: Animate = (context, canvasSize, frameOptions, startTime) => {

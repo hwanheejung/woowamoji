@@ -1,4 +1,5 @@
 import { FrameRenderOptions } from '@/contexts/FrameContext'
+import { EffectArgs } from '.'
 import { renderFrame } from '../_utils'
 
 const DURATION = 300
@@ -11,13 +12,7 @@ type Animate = (
   startTime: number,
 ) => void
 
-type Shaker = (
-  context: CanvasRenderingContext2D,
-  canvasSize: number,
-  frameOptions: FrameRenderOptions,
-) => () => void
-
-const createShaker = (): Shaker => {
+const createShaker = (): EffectArgs => {
   let timer: number | null = null
 
   const animate: Animate = (context, canvasSize, frameOptions, startTime) => {

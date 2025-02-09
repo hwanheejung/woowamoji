@@ -5,7 +5,6 @@ export enum Category {
 }
 
 export enum SubCategory {
-  FONT_SIZE = 'fontSize',
   TEXT_EFFECT = 'textEffect',
   FONT_FAMILY = 'fontFamily',
   TEXT_COLOR = 'textColor',
@@ -34,10 +33,6 @@ export const CATEGORY: Record<Category, ItemInfo> = {
 }
 
 export const SUB_CATEGORY: Record<SubCategory, ItemInfo> = {
-  [SubCategory.FONT_SIZE]: {
-    key: SubCategory.FONT_SIZE,
-    name: '크기',
-  },
   [SubCategory.TEXT_EFFECT]: {
     key: SubCategory.TEXT_EFFECT,
     name: '효과',
@@ -61,7 +56,7 @@ export const SUB_CATEGORY: Record<SubCategory, ItemInfo> = {
 }
 
 export const MENU_MAP = {
-  [Category.TYPE]: [SubCategory.FONT_SIZE, SubCategory.TEXT_EFFECT],
+  [Category.TYPE]: [SubCategory.TEXT_EFFECT],
   [Category.TEXT]: [SubCategory.FONT_FAMILY, SubCategory.TEXT_COLOR],
   [Category.BACKGROUND]: [
     SubCategory.BACKGROUND_COLOR,

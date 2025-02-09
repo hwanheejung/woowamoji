@@ -1,4 +1,5 @@
 import { FrameRenderOptions } from '@/contexts/FrameContext'
+import { EffectArgs } from '.'
 import { renderFrame } from '../_utils'
 
 const DURATION = 1200
@@ -12,13 +13,7 @@ type Animate = (
   startTime: number,
 ) => void
 
-type Pulser = (
-  context: CanvasRenderingContext2D,
-  canvasSize: number,
-  frameOptions: FrameRenderOptions,
-) => () => void
-
-const createPulser = (): Pulser => {
+const createPulser = (): EffectArgs => {
   let timer: number | null = null
 
   const animate: Animate = (context, canvasSize, frameOptions, startTime) => {

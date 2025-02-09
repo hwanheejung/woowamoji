@@ -1,5 +1,6 @@
 import { FrameRenderOptions } from '@/contexts/FrameContext'
 import { Timer } from '@/utils/types'
+import { EffectArgs } from '.'
 import { renderFrame } from '../_utils'
 
 const DELAY = 500
@@ -11,13 +12,7 @@ type Animate = (
   visible: boolean,
 ) => void
 
-type Blinker = (
-  context: CanvasRenderingContext2D,
-  canvasSize: number,
-  frameOptions: FrameRenderOptions,
-) => () => void
-
-const createBlinker = (): Blinker => {
+const createBlinker = (): EffectArgs => {
   let timer: Timer = null
   const animate: Animate = (context, canvasSize, frameOptions, visible) => {
     renderFrame(context, canvasSize, {
