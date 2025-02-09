@@ -35,13 +35,11 @@ const createOneByOne = (): EffectArgs => {
 
     const text = frameOptions.text || ''
 
-    if (text.length === 1) {
-      // 한 글자라면 즉시 renderFrame 실행 후 종료
+    if (text.length <= 1) {
+      // 한 글자 이하면 즉시 renderFrame 실행 후 종료
       renderFrame(context, canvasSize, { ...frameOptions, text })
       return
     }
-
-    if (text.length === 0) return // 빈 문자열이면 실행하지 않음
 
     animate(context, canvasSize, frameOptions, text, 0) // 첫 번째 글자부터 시작
 

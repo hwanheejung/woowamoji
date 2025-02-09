@@ -12,6 +12,7 @@ import { ReactNode, createContext, useContext, useMemo, useState } from 'react'
 export const DEFAULT_OPTIONS: FrameRenderOptions = {
   text: '안녕',
   fontFamily: Font.JUA,
+  fontSize: undefined,
   color: TextColor.BLACK,
   backGroundColor: BackgroundColor.LIGHT_GRAY,
   backgroundTheme: undefined,
@@ -29,6 +30,7 @@ export interface BackgroundRenderOptions {
 export interface FrameRenderOptions extends BackgroundRenderOptions {
   text?: string
   fontFamily?: Font
+  fontSize?: number
   color?: `#${string}`
   position?: { x: number; y: number }
   opacity?: number

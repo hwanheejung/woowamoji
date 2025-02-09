@@ -8,6 +8,6 @@ export enum TextEffect {
   SHAKE = 'shake',
   BOUNCE = 'bounce',
   ONE_BY_ONE = 'oneByOne', // 한글자씩 나타남
-  // SLIDE_LEFT_RIGHT = 'slideLeftRight',
+  SLIDEX = 'slideX',
   // SLIDE_UP = 'slideUp',
 }

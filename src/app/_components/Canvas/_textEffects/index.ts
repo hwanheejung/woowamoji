@@ -8,6 +8,7 @@ export { default as float } from './float'
 export { default as shake } from './shake'
 export { default as bounce } from './bounce'
 export { default as oneByOne } from './oneByOne'
+export { default as slideX } from './slideX'
 
 export type EffectArgs = (
   context: CanvasRenderingContext2D,

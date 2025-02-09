@@ -8,6 +8,7 @@ import {
   oneByOne,
   pulse,
   shake,
+  slideX,
   spin,
   wobble,
 } from '../_textEffects'
@@ -34,8 +35,8 @@ export const useEffectHandler = (
     shake,
     bounce,
     oneByOne,
+    slideX,
   }
-
   const applyEffect = useCallback(() => {
     // 이전 effect 정리
     effectCleanupRef.current?.()

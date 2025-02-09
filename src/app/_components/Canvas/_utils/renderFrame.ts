@@ -9,6 +9,7 @@ interface Dimensions {
   y: number
   width: number
   height: number
+  fontSize: number
 }
 
 type RenderFrame = (
@@ -58,6 +59,22 @@ const adjustFontSizeToFit = (
 
   // 최종 폰트 적용
   ctx.font = `${fontSize}px ${fontFamily}`
+
+  return fontSize
+}
+
+const renderText = (
+  ctx: CanvasRenderingContext2D,
+  canvasSize: number,
+  text: string,
+  fontFamily: string,
+  fontSize: number,
+) => {
+  ctx.font = `${fontSize}px ${fontFamily}`
+  ctx.textAlign = 'left'
+  ctx.textBaseline = 'middle'
+  ctx.fillText(text, canvasSize / 2, canvasSize / 2)
+  return ctx.measureText(text)
 }
 
 const renderCenteredText = (
@@ -66,7 +83,7 @@ const renderCenteredText = (
   text: string,
   fontFamily: string,
 ) => {
-  adjustFontSizeToFit(ctx, text, fontFamily, canvasSize)
+  const fontSize = adjustFontSizeToFit(ctx, text, fontFamily, canvasSize)
 
   // 중앙 정렬
   ctx.textAlign = 'center' // horizontal
@@ -74,13 +91,13 @@ const renderCenteredText = (
 
   ctx.fillText(text, canvasSize / 2, canvasSize / 2)
 
-  return ctx.measureText(text)
+  return { metrics: ctx.measureText(text), fontSize }
 }
 
 const calculateDimensions = (
   position: { x: number; y: number },
   metrics: TextMetrics,
-): Dimensions => {
+): Omit<Dimensions, 'fontSize'> => {
   const width = metrics.width
   const height =
     metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent
@@ -96,6 +113,7 @@ const renderFrame: RenderFrame = (context, canvasSize, options) => {
   const {
     text = '',
     fontFamily = Font.JUA,
+    fontSize: givenFontSize = undefined,
     color = TextColor.BLACK,
     position = { x: 0, y: 0 },
     opacity = 1,
@@ -110,12 +128,24 @@ const renderFrame: RenderFrame = (context, canvasSize, options) => {
   applyStyles(context, color, opacity, position, rotation, scale)
   context.translate(-canvasSize / 2, -canvasSize / 2) // 원래 위치로 이동
 
-  const metrics = renderCenteredText(context, canvasSize, text, fontFamily)
+  const { metrics, fontSize } = givenFontSize
+    ? {
+        metrics: renderText(
+          context,
+          canvasSize,
+          text,
+          fontFamily,
+          givenFontSize,
+        ),
+        fontSize: givenFontSize,
+      }
+    : renderCenteredText(context, canvasSize, text, fontFamily)
+
   const dimensions = calculateDimensions(position, metrics)
 
   context.restore()
 
-  return dimensions
+  return { fontSize, ...dimensions }
 }
 
 export default renderFrame
