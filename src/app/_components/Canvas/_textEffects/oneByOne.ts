@@ -14,7 +14,7 @@ type Animate = (
 ) => void
 
 const createOneByOne = (): EffectArgs => {
-  let timer: Timer | null = null
+  let timer: Timer = null
 
   const animate: Animate = (context, canvasSize, frameOptions, text, index) => {
     renderFrame(context, canvasSize, {

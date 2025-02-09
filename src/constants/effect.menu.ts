@@ -9,5 +9,4 @@ export enum TextEffect {
   BOUNCE = 'bounce',
   ONE_BY_ONE = 'oneByOne', // 한글자씩 나타남
   SLIDEX = 'slideX',
-  // SLIDE_UP = 'slideUp',
 }
