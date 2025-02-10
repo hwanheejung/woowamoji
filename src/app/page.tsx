@@ -3,6 +3,7 @@ import Demo from './_components/Demo'
 import Footer from './_components/Footer'
 import Maker from './_components/Maker'
 import { FrameContextProvider } from '@/contexts/FrameContext'
+import { CanvasProvider } from '@/contexts/CanvasContext'
 
 export default function Home() {
   return (
@@ -20,8 +21,10 @@ export default function Home() {
       </header>
       <main className="row-start-2 flex items-center gap-8">
         <FrameContextProvider>
-          <Demo />
-          <Maker />
+          <CanvasProvider>
+            <Demo />
+            <Maker />
+          </CanvasProvider>
         </FrameContextProvider>
       </main>
       <footer className="row-start-3 flex flex-col items-center justify-center gap-2">

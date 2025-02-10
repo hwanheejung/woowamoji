@@ -1,7 +1,8 @@
 'use client'
 
+import { useCanvasRefs } from '@/contexts/CanvasContext'
 import { useFrame } from '@/contexts/FrameContext'
-import { HTMLAttributes, useEffect, useRef } from 'react'
+import { HTMLAttributes, useEffect } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { useCanvas } from './_hooks/useCanvas'
 import { useEffectHandler } from './_hooks/useEffectHandler'
@@ -13,44 +14,43 @@ interface CanvasProps {
   className?: HTMLAttributes<HTMLDivElement>['className']
 }
 
-const Canvas = (props: CanvasProps) => {
-  const backgroundCanvasRef = useRef<HTMLCanvasElement>(null)
-  const { contextRef: bgContextRef, initializeCanvas: initializeBgCanvas } =
-    useCanvas(backgroundCanvasRef)
+const Canvas = ({ className }: CanvasProps) => {
+  const { backgroundCanvasRef, mainCanvasRef } = useCanvasRefs()
   const { backGroundColor, backgroundTheme } = useFrame()
 
-  const mainCanvasRef = useRef<HTMLCanvasElement>(null)
-  const { contextRef: mainContextRef, initializeCanvas: initializeMainCanvas } =
+  const { contextRef: bgContextRef, initializeCanvas: initBgCanvas } =
+    useCanvas(backgroundCanvasRef)
+  const { contextRef: mainContextRef, initializeCanvas: initMainCanvas } =
     useCanvas(mainCanvasRef)
+
   const { applyEffect, frameOptions } = useEffectHandler(
     mainContextRef,
     CANVAS_SIZE,
   )
 
+  // 🟢 캔버스 초기화
   useEffect(() => {
-    initializeBgCanvas()
-    initializeMainCanvas()
-  }, [initializeMainCanvas, initializeBgCanvas])
+    initBgCanvas()
+    initMainCanvas()
+  }, [initBgCanvas, initMainCanvas])
 
+  // 🟢 배경 캔버스 업데이트
   useEffect(() => {
     const bgCtx = bgContextRef.current
     if (!bgCtx) return
+    loadBackground(bgCtx, CANVAS_SIZE, { backGroundColor, backgroundTheme })
+  }, [backGroundColor, backgroundTheme, bgContextRef])
 
-    loadBackground(bgCtx, CANVAS_SIZE, {
-      backGroundColor,
-      backgroundTheme,
-    })
-  }, [backGroundColor, backgroundTheme])
-
+  // 🟢 효과 적용
   useEffect(() => {
     applyEffect()
-  }, [frameOptions])
+  }, [applyEffect, frameOptions])
 
   return (
     <div
       className={twMerge(
         'z-10 h-full w-full overflow-hidden border-[1px]',
-        props.className,
+        className,
       )}
     >
       <canvas
@@ -59,7 +59,7 @@ const Canvas = (props: CanvasProps) => {
         className="absolute left-0 top-0 -z-10"
       />
       <canvas
-        id="canvas"
+        id="mainCanvas"
         ref={mainCanvasRef}
         className="absolute left-0 top-0"
       />

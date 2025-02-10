@@ -26,19 +26,22 @@ export const useEffectHandler = (
     [text, fontFamily, color, effect],
   )
 
-  const effectHandlers: Record<string, EffectArgs> = {
-    blink,
-    pulse,
-    wobble,
-    spin,
-    float,
-    shake,
-    bounce,
-    oneByOne,
-    slideX,
-  }
+  const effectHandlers = useMemo<Record<string, EffectArgs>>(
+    () => ({
+      blink,
+      pulse,
+      wobble,
+      spin,
+      float,
+      shake,
+      bounce,
+      oneByOne,
+      slideX,
+    }),
+    [],
+  )
+
   const applyEffect = useCallback(() => {
-    // 이전 effect 정리
     effectCleanupRef.current?.()
     effectCleanupRef.current = null
 
@@ -51,7 +54,7 @@ export const useEffectHandler = (
       effectCleanupRef.current =
         effectHandlers[effect]?.(ctx, canvasSize, frameOptions) ?? null
     }
-  }, [contextRef, frameOptions])
+  }, [contextRef, frameOptions, effectHandlers])
 
   return { applyEffect, frameOptions }
 }
