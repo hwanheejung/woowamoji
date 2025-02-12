@@ -4,6 +4,7 @@ import Footer from './_components/Footer'
 import Maker from './_components/Maker'
 import { FrameContextProvider } from '@/contexts/FrameContext'
 import { CanvasProvider } from '@/contexts/CanvasContext'
+import { GifProvider } from '@/contexts/GifContext'
 
 export default function Home() {
   return (
@@ -19,11 +20,14 @@ export default function Home() {
           loading="eager"
         />
       </header>
+
       <main className="row-start-2 flex items-center gap-8">
         <FrameContextProvider>
           <CanvasProvider>
-            <Demo />
-            <Maker />
+            <GifProvider>
+              <Demo />
+              <Maker />
+            </GifProvider>
           </CanvasProvider>
         </FrameContextProvider>
       </main>

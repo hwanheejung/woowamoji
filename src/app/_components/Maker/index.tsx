@@ -12,6 +12,7 @@ import {
 import Layout from './Layout'
 import Menu from './Menu'
 import TextInput from './TextInput'
+import DownloadButton from './DownloadButton'
 
 const menus = [
   TextEffectMenu,
@@ -34,9 +35,7 @@ const Maker = () => {
         currentCategory={currentCategory}
         setCurrentCategory={setCurrentCategory}
       />
-      <button className="text-white w-full rounded-full bg-baeminBlue py-3">
-        완료
-      </button>
+      <DownloadButton />
     </Layout>
   )
 }

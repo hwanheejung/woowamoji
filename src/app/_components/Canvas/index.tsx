@@ -23,7 +23,7 @@ const Canvas = ({ className }: CanvasProps) => {
   const { contextRef: mainContextRef, initializeCanvas: initMainCanvas } =
     useCanvas(mainCanvasRef)
 
-  const { applyEffect, frameOptions } = useEffectHandler(
+  const { frameOptions, applyEffect } = useEffectHandler(
     mainContextRef,
     CANVAS_SIZE,
   )
@@ -41,7 +41,7 @@ const Canvas = ({ className }: CanvasProps) => {
     loadBackground(bgCtx, CANVAS_SIZE, { backGroundColor, backgroundTheme })
   }, [backGroundColor, backgroundTheme, bgContextRef])
 
-  // 🟢 효과 적용
+  // 🟢 텍스트 효과 적용
   useEffect(() => {
     applyEffect()
   }, [applyEffect, frameOptions])

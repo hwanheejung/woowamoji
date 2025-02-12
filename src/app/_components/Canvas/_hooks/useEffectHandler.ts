@@ -41,6 +41,7 @@ export const useEffectHandler = (
     [],
   )
 
+  // 효과 적용 함수
   const applyEffect = useCallback(() => {
     effectCleanupRef.current?.()
     effectCleanupRef.current = null
@@ -56,5 +57,5 @@ export const useEffectHandler = (
     }
   }, [contextRef, frameOptions, effectHandlers])
 
-  return { applyEffect, frameOptions }
+  return { frameOptions, applyEffect }
 }
