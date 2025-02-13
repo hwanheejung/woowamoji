@@ -1,5 +1,5 @@
+import renderFrame from '@/utils/renderFrame'
 import { EffectArgs } from '.'
-import { renderFrame } from '../_utils'
 
 const SPEED = 50 // 초당 이동 속도 (px/sec)
 

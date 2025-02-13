@@ -1,9 +1,8 @@
 import { FrameRenderOptions } from '@/contexts/FrameContext'
+import renderFrame from '@/utils/renderFrame'
 import { EffectArgs } from '.'
-import { renderFrame } from '../_utils'
 
-const DURATION = 300
-const SHAKE_INTENSITY = 2 // 흔들리는 범위 (px)
+const DURATION = 2000
 
 type Animate = (
   context: CanvasRenderingContext2D,
@@ -12,20 +11,20 @@ type Animate = (
   startTime: number,
 ) => void
 
-const createShaker = (): EffectArgs => {
+const createFloater = (): EffectArgs => {
   let timer: number | null = null
 
   const animate: Animate = (context, canvasSize, frameOptions, startTime) => {
     const elapsed = Date.now() - startTime
     const progress = (elapsed % DURATION) / DURATION
 
-    const shakeX =
-      (Math.sin(progress * Math.PI * 10) + (Math.random() - 0.5) * 0.5) *
-      SHAKE_INTENSITY
+    const FLOAT_RANGE = canvasSize / 4 // 위아래 이동 범위
+
+    const floatY = FLOAT_RANGE * Math.sin(progress * Math.PI * 2)
 
     renderFrame(context, canvasSize, {
       ...frameOptions,
-      position: { x: shakeX, y: 0 },
+      position: { x: 0, y: floatY },
     })
 
     timer = requestAnimationFrame(() =>
@@ -44,6 +43,6 @@ const createShaker = (): EffectArgs => {
   }
 }
 
-const shake = createShaker()
+const float = createFloater()
 
-export default shake
+export default float

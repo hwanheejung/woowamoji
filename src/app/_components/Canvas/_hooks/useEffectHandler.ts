@@ -1,5 +1,4 @@
 import { useFrame } from '@/contexts/FrameContext'
-import { useCallback, useMemo, useRef } from 'react'
 import {
   EffectArgs,
   blink,
@@ -11,8 +10,9 @@ import {
   slideX,
   spin,
   wobble,
-} from '../_textEffects'
-import { renderFrame } from '../_utils'
+} from '@/effects'
+import renderFrame from '@/utils/renderFrame'
+import { useCallback, useMemo, useRef } from 'react'
 
 export const useEffectHandler = (
   contextRef: React.RefObject<CanvasRenderingContext2D | null>,

@@ -1,9 +1,8 @@
 import { FrameRenderOptions } from '@/contexts/FrameContext'
-import { renderFrame } from '../_utils'
+import renderFrame from '@/utils/renderFrame'
 import { EffectArgs } from '.'
 
-const DURATION = 2000 // 한 바퀴 도는 시간
-const FULL_ROTATION = 360 // 360도 회전
+const DURATION = 1000 // 한 번 튀는 데 걸리는 시간
 
 type Animate = (
   context: CanvasRenderingContext2D,
@@ -12,18 +11,21 @@ type Animate = (
   startTime: number,
 ) => void
 
-const createSpinner = (): EffectArgs => {
+const createBouncer = (): EffectArgs => {
   let timer: number | null = null
 
   const animate: Animate = (context, canvasSize, frameOptions, startTime) => {
     const elapsed = Date.now() - startTime
-    const progress = (elapsed % DURATION) / DURATION // 0 ~ 1
+    const progress = (elapsed % DURATION) / DURATION
 
-    const rotation = progress * FULL_ROTATION
+    // 천천히 올라가고 빠르게 내려오기
+    const BOUNCE_HEIGHT = canvasSize / 2 // 최대 튀는 높이 (px)
+    const bounceY =
+      BOUNCE_HEIGHT * Math.abs(Math.cos(progress * Math.PI)) - canvasSize / 4
 
     renderFrame(context, canvasSize, {
       ...frameOptions,
-      rotation,
+      position: { x: 0, y: -bounceY },
     })
 
     timer = requestAnimationFrame(() =>
@@ -42,6 +44,6 @@ const createSpinner = (): EffectArgs => {
   }
 }
 
-const spin = createSpinner()
+const bounce = createBouncer()
 
-export default spin
+export default bounce

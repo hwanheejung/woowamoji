@@ -1,10 +1,9 @@
 import { FrameRenderOptions } from '@/contexts/FrameContext'
+import renderFrame from '@/utils/renderFrame'
 import { EffectArgs } from '.'
-import { renderFrame } from '../_utils'
 
-const DURATION = 1200
-const MIN_ROTATION = -10 // deg
-const MAX_ROTATION = 10
+const DURATION = 300
+const SHAKE_INTENSITY = 2 // 흔들리는 범위 (px)
 
 type Animate = (
   context: CanvasRenderingContext2D,
@@ -13,22 +12,20 @@ type Animate = (
   startTime: number,
 ) => void
 
-const createWobbler = (): EffectArgs => {
+const createShaker = (): EffectArgs => {
   let timer: number | null = null
 
   const animate: Animate = (context, canvasSize, frameOptions, startTime) => {
     const elapsed = Date.now() - startTime
-    const progress = (elapsed % DURATION) / DURATION // 0 ~ 1
+    const progress = (elapsed % DURATION) / DURATION
 
-    // ease-in-out
-    const rotation =
-      MIN_ROTATION +
-      (MAX_ROTATION - MIN_ROTATION) *
-        (0.5 + 0.5 * Math.sin(progress * Math.PI * 2))
+    const shakeX =
+      (Math.sin(progress * Math.PI * 10) + (Math.random() - 0.5) * 0.5) *
+      SHAKE_INTENSITY
 
     renderFrame(context, canvasSize, {
       ...frameOptions,
-      rotation,
+      position: { x: shakeX, y: 0 },
     })
 
     timer = requestAnimationFrame(() =>
@@ -47,6 +44,6 @@ const createWobbler = (): EffectArgs => {
   }
 }
 
-const wobble = createWobbler()
+const shake = createShaker()
 
-export default wobble
+export default shake

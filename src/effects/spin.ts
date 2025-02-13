@@ -1,8 +1,9 @@
 import { FrameRenderOptions } from '@/contexts/FrameContext'
+import renderFrame from '@/utils/renderFrame'
 import { EffectArgs } from '.'
-import { renderFrame } from '../_utils'
 
-const DURATION = 2000
+const DURATION = 2000 // 한 바퀴 도는 시간
+const FULL_ROTATION = 360 // 360도 회전
 
 type Animate = (
   context: CanvasRenderingContext2D,
@@ -11,20 +12,18 @@ type Animate = (
   startTime: number,
 ) => void
 
-const createFloater = (): EffectArgs => {
+const createSpinner = (): EffectArgs => {
   let timer: number | null = null
 
   const animate: Animate = (context, canvasSize, frameOptions, startTime) => {
     const elapsed = Date.now() - startTime
-    const progress = (elapsed % DURATION) / DURATION
+    const progress = (elapsed % DURATION) / DURATION // 0 ~ 1
 
-    const FLOAT_RANGE = canvasSize / 4 // 위아래 이동 범위
-
-    const floatY = FLOAT_RANGE * Math.sin(progress * Math.PI * 2)
+    const rotation = progress * FULL_ROTATION
 
     renderFrame(context, canvasSize, {
       ...frameOptions,
-      position: { x: 0, y: floatY },
+      rotation,
     })
 
     timer = requestAnimationFrame(() =>
@@ -43,6 +42,6 @@ const createFloater = (): EffectArgs => {
   }
 }
 
-const float = createFloater()
+const spin = createSpinner()
 
-export default float
+export default spin

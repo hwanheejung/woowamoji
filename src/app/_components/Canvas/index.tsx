@@ -6,7 +6,7 @@ import { HTMLAttributes, useEffect } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { useCanvas } from './_hooks/useCanvas'
 import { useEffectHandler } from './_hooks/useEffectHandler'
-import { loadBackground } from './_utils'
+import loadBackground from '@/utils/loadBackground'
 
 const CANVAS_SIZE = 50
 
@@ -47,12 +47,7 @@ const Canvas = ({ className }: CanvasProps) => {
   }, [applyEffect, frameOptions])
 
   return (
-    <div
-      className={twMerge(
-        'z-10 h-full w-full overflow-hidden border-[1px]',
-        className,
-      )}
-    >
+    <div className={twMerge('z-10 h-full w-full overflow-hidden', className)}>
       <canvas
         id="backgroundCanvas"
         ref={backgroundCanvasRef}
