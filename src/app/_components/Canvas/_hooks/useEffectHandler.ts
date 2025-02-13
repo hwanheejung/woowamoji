@@ -11,7 +11,7 @@ import {
   spin,
   wobble,
 } from '@/effects'
-import renderFrame from '@/utils/renderFrame'
+import renderFrame from '@/graphics/renderFrame'
 import { useCallback, useMemo, useRef } from 'react'
 
 export const useEffectHandler = (

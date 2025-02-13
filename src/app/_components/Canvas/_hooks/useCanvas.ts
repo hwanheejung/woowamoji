@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react'
-import createHighDPICanvas from '@/utils/createHighDPICanvas'
+import createHighDPICanvas from '@/graphics/createHighDPICanvas'
 
 const CANVAS_SIZE = 50
 

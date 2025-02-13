@@ -1,5 +1,5 @@
 import { FrameRenderOptions } from '@/contexts/FrameContext'
-import renderFrame from '@/utils/renderFrame'
+import renderFrame from '@/graphics/renderFrame'
 import { EffectArgs } from '.'
 
 const DURATION = 1200

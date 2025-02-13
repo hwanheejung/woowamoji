@@ -6,7 +6,7 @@ import { HTMLAttributes, useEffect } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { useCanvas } from './_hooks/useCanvas'
 import { useEffectHandler } from './_hooks/useEffectHandler'
-import loadBackground from '@/utils/loadBackground'
+import loadBackground from '@/graphics/loadBackground'
 
 const CANVAS_SIZE = 50
 
