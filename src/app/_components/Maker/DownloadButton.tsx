@@ -1,24 +1,14 @@
 'use client'
 
 import { useGif } from '@/contexts/GifContext'
+import generateGifFromBuffer from '@/graphics/generateGif'
 
 const DownloadButton = () => {
-  const { gifBlob } = useGif()
-
-  const downloadGif = () => {
-    if (!gifBlob) return
-    const url = URL.createObjectURL(gifBlob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = 'animation.gif'
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-  }
+  const { savedFrames, backgroundImage } = useGif()
 
   return (
     <button
-      onClick={downloadGif}
+      onClick={() => generateGifFromBuffer(backgroundImage!, savedFrames)}
       className="text-white w-full rounded-full bg-baeminBlue py-3"
     >
       완료

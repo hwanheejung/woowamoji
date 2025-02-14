@@ -16,5 +16,5 @@ export type EffectArgs = (
   canvasSize: number,
   frameOptions: FrameRenderOptions,
   savedFramesRef: RefObject<ImageData[]>,
-  addFrameToBuffer: (ctx: CanvasRenderingContext2D, canvasSize: number) => void,
+  addFrameToBuffer: (ctx: CanvasRenderingContext2D) => void,
 ) => (() => void) | void

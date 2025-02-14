@@ -17,6 +17,7 @@ export const useCanvas = (
       CANVAS_SIZE,
       CANVAS_SIZE,
     )
+
     canvas.width = highDPICanvas.width
     canvas.height = highDPICanvas.height
     canvas.style.width = `${CANVAS_SIZE}px`

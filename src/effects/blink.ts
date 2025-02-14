@@ -13,7 +13,7 @@ interface AnimateProps {
   frameOptions: FrameRenderOptions
   visible: boolean
   savedFramesRef: RefObject<ImageData[]>
-  addFrameToBuffer: (ctx: CanvasRenderingContext2D, canvasSize: number) => void
+  addFrameToBuffer: (ctx: CanvasRenderingContext2D) => void
 }
 
 const createBlinker = (): EffectArgs => {
@@ -34,7 +34,7 @@ const createBlinker = (): EffectArgs => {
     })
 
     if (savedFramesRef.current.length < FRAMES_COUNT) {
-      addFrameToBuffer(context, canvasSize)
+      addFrameToBuffer(context)
     }
 
     timer = setTimeout(

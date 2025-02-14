@@ -54,7 +54,7 @@ export const useEffectHandler = (
     clearFrameBuffer()
     if (effect === 'none') {
       renderFrame(ctx, canvasSize, frameOptions)
-      addFrameToBuffer(ctx, canvasSize)
+      addFrameToBuffer(ctx)
     } else {
       effectCleanupRef.current =
         effectHandlers[effect]?.(

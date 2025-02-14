@@ -1,56 +1,61 @@
 'use client'
 
 import {
+  Dispatch,
+  RefObject,
+  SetStateAction,
   createContext,
   useCallback,
   useContext,
   useMemo,
-  useState,
   useRef,
-  RefObject,
+  useState,
 } from 'react'
 
 interface GifContextType {
-  gifBlob: Blob | null
-  setGifBlob: (gif: Blob | null) => void
+  backgroundImage: ImageData | null
+  setBackgroundImage: Dispatch<SetStateAction<ImageData | null>>
   savedFramesRef: RefObject<ImageData[]>
   savedFrames: ImageData[]
-  addFrameToBuffer: (ctx: CanvasRenderingContext2D, canvasSize: number) => void
+  addFrameToBuffer: (ctx: CanvasRenderingContext2D) => void
   clearFrameBuffer: () => void
 }
 
 const GifContext = createContext<GifContextType | undefined>(undefined)
 
 export const GifProvider = ({ children }: { children: React.ReactNode }) => {
-  const [gifBlob, setGifBlob] = useState<Blob | null>(null)
+  const [backgroundImage, setBackgroundImage] = useState<ImageData | null>(null)
   const [savedFrames, setSavedFrames] = useState<ImageData[]>([])
-  const savedFramesRef = useRef<ImageData[]>([]) // ✅ 프레임 리스트 최신 상태 유지
+  const savedFramesRef = useRef<ImageData[]>([])
 
-  const addFrameToBuffer = useCallback(
-    (ctx: CanvasRenderingContext2D, canvasSize: number) => {
-      const frame = ctx.getImageData(0, 0, canvasSize, canvasSize)
+  const addFrameToBuffer = useCallback((ctx: CanvasRenderingContext2D) => {
+    const frame = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height)
 
-      savedFramesRef.current = [...savedFramesRef.current, frame] // 최신 상태 유지
-      setSavedFrames(savedFramesRef.current) // useState 업데이트
-    },
-    [],
-  )
+    savedFramesRef.current = [...savedFramesRef.current, frame]
+    setSavedFrames(savedFramesRef.current)
+  }, [])
 
   const clearFrameBuffer = useCallback(() => {
-    savedFramesRef.current = [] // ✅ Ref도 초기화
+    savedFramesRef.current = []
     setSavedFrames([])
   }, [])
 
   const value = useMemo(
     () => ({
-      gifBlob,
-      setGifBlob,
+      backgroundImage,
+      setBackgroundImage,
       savedFramesRef,
       savedFrames,
       addFrameToBuffer,
       clearFrameBuffer,
     }),
-    [gifBlob, savedFrames, addFrameToBuffer, clearFrameBuffer],
+    [
+      backgroundImage,
+      setBackgroundImage,
+      savedFrames,
+      addFrameToBuffer,
+      clearFrameBuffer,
+    ],
   )
 
   return <GifContext.Provider value={value}>{children}</GifContext.Provider>

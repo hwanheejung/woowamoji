@@ -7,6 +7,7 @@ import { HTMLAttributes, useEffect } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { useCanvas } from './_hooks/useCanvas'
 import { useEffectHandler } from './_hooks/useEffectHandler'
+import { useGif } from '@/contexts/GifContext'
 
 const CANVAS_SIZE = 50
 
@@ -17,6 +18,7 @@ interface CanvasProps {
 const Canvas = ({ className }: CanvasProps) => {
   const { backgroundCanvasRef, mainCanvasRef } = useCanvasRefs()
   const { backGroundColor, backgroundTheme } = useFrame()
+  const { setBackgroundImage } = useGif()
 
   const { contextRef: bgContextRef, initializeCanvas: initBgCanvas } =
     useCanvas(backgroundCanvasRef)
@@ -38,7 +40,10 @@ const Canvas = ({ className }: CanvasProps) => {
   useEffect(() => {
     const bgCtx = bgContextRef.current
     if (!bgCtx) return
-    loadBackground(bgCtx, CANVAS_SIZE, { backGroundColor, backgroundTheme })
+    loadBackground(bgCtx, CANVAS_SIZE, setBackgroundImage, {
+      backGroundColor,
+      backgroundTheme,
+    })
   }, [backGroundColor, backgroundTheme, bgContextRef])
 
   // 🟢 텍스트 효과 적용
