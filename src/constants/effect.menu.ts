@@ -37,10 +37,15 @@ export const EFFECT_SETTINGS: Record<TextEffect, any> = {
       MAX_ROTATION: 10,
     }
   })(),
-  [TextEffect.SPIN]: {
-    FRAME_COUNT: 30,
-    FRAME_INTERVAL: 50,
-  },
+  [TextEffect.SPIN]: (() => {
+    const FRAME_COUNT = 28
+    const DURATION = 1200
+    return {
+      FRAME_COUNT,
+      FRAME_INTERVAL: DURATION / FRAME_COUNT,
+      FULL_ROTATION: 360,
+    }
+  })(),
   [TextEffect.FLOAT]: {
     FRAME_COUNT: 30,
     FRAME_INTERVAL: 50,
