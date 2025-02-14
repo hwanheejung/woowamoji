@@ -66,8 +66,8 @@ export const EFFECT_SETTINGS: Record<TextEffect, any> = {
     BOUNCE_HEIGHT_RATIO: 0.5,
   },
   [TextEffect.ONE_BY_ONE]: {
-    FRAME_COUNT: 1,
-    FRAME_INTERVAL: 100,
+    FRAME_INTERVAL: 400,
+    MAX_FRAME_COUNT: 15,
   },
   [TextEffect.SLIDEX]: {
     FRAME_COUNT: 30,
