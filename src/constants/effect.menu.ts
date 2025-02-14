@@ -46,10 +46,15 @@ export const EFFECT_SETTINGS: Record<TextEffect, any> = {
       FULL_ROTATION: 360,
     }
   })(),
-  [TextEffect.FLOAT]: {
-    FRAME_COUNT: 30,
-    FRAME_INTERVAL: 50,
-  },
+  [TextEffect.FLOAT]: (() => {
+    const FRAME_COUNT = 25
+    const DURATION = 1400
+    return {
+      FRAME_COUNT,
+      FRAME_INTERVAL: DURATION / FRAME_COUNT,
+      FLOAT_RANGE_RATIO: 0.25,
+    }
+  })(),
   [TextEffect.SHAKE]: {
     FRAME_COUNT: 30,
     FRAME_INTERVAL: 50,
