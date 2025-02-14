@@ -10,6 +10,9 @@ type LoadBackground = (
   },
 ) => void
 
+/**
+ * 1. 배경 렌더링 / 2. 배경 이미지 캡쳐
+ */
 const loadBackground: LoadBackground = (
   context,
   canvasSize,
@@ -19,37 +22,61 @@ const loadBackground: LoadBackground = (
   const { backGroundColor, backgroundTheme } = options
   context.clearRect(0, 0, canvasSize, canvasSize)
 
-  const actualCanvasSize = context.canvas.width
-
   if (backGroundColor) {
-    context.fillStyle = backGroundColor
-    context.fillRect(0, 0, canvasSize, canvasSize)
-    const capturedImage = context.getImageData(
-      0,
-      0,
-      actualCanvasSize,
-      actualCanvasSize,
+    applyBackgroundColor(
+      context,
+      canvasSize,
+      backGroundColor,
+      setBackgroundImage,
     )
-    setBackgroundImage(capturedImage)
   }
 
   if (backgroundTheme) {
-    const img = new Image()
-    img.src = `/backgroundThemes/${backgroundTheme}.png`
-    img.onload = () => {
-      context.drawImage(img, 0, 0, canvasSize, canvasSize)
-      const capturedImage = context.getImageData(
-        0,
-        0,
-        actualCanvasSize,
-        actualCanvasSize,
-      )
-      setBackgroundImage(capturedImage)
-    }
-    img.onerror = () => {
-      console.error(`Failed to load background image: ${img.src}`)
-    }
+    applyBackgroundImage(
+      context,
+      canvasSize,
+      backgroundTheme,
+      setBackgroundImage,
+    )
   }
+}
+
+const applyBackgroundColor = (
+  context: CanvasRenderingContext2D,
+  canvasSize: number,
+  color: string,
+  setBackgroundImage: Dispatch<SetStateAction<ImageData | null>>,
+) => {
+  context.fillStyle = color
+  context.fillRect(0, 0, canvasSize, canvasSize)
+  captureBackgroundImage(context, setBackgroundImage)
+}
+
+const applyBackgroundImage = (
+  context: CanvasRenderingContext2D,
+  canvasSize: number,
+  theme: string,
+  setBackgroundImage: Dispatch<SetStateAction<ImageData | null>>,
+) => {
+  const img = new Image()
+  img.src = `/backgroundThemes/${theme}.png`
+  img.onload = () => {
+    context.drawImage(img, 0, 0, canvasSize, canvasSize)
+    captureBackgroundImage(context, setBackgroundImage)
+  }
+  img.onerror = () =>
+    console.error(`Failed to load background image: ${img.src}`)
+}
+
+/**
+ * 현재 캔버스 상태를 ImageData로 저장
+ */
+const captureBackgroundImage = (
+  context: CanvasRenderingContext2D,
+  setBackgroundImage: Dispatch<SetStateAction<ImageData | null>>,
+) => {
+  const canvasSize = context.canvas.width
+  setBackgroundImage(context.getImageData(0, 0, canvasSize, canvasSize))
 }
 
 export default loadBackground
