@@ -1,52 +1,79 @@
 import { FrameRenderOptions } from '@/contexts/FrameContext'
 import renderFrame from '@/graphics/renderFrame'
 import { EffectArgs } from '.'
+import { EFFECT_SETTINGS } from '@/constants'
+import { RefObject } from 'react'
+import { Timer } from '@/utils/types'
 
-const DURATION = 1200
-const MIN_ROTATION = -10 // deg
-const MAX_ROTATION = 10
+const { MIN_ROTATION, MAX_ROTATION, FRAME_COUNT, FRAME_INTERVAL } =
+  EFFECT_SETTINGS['wobble']
 
-type Animate = (
-  context: CanvasRenderingContext2D,
-  canvasSize: number,
-  frameOptions: FrameRenderOptions,
-  startTime: number,
-) => void
+interface AnimateProps {
+  context: CanvasRenderingContext2D
+  canvasSize: number
+  frameOptions: FrameRenderOptions
+  frameIndex: number
+  addFrameToBuffer: (ctx: CanvasRenderingContext2D) => void
+  savedFramesRef: RefObject<ImageData[]>
+}
 
 const createWobbler = (): EffectArgs => {
-  let timer: number | null = null
+  let timer: Timer = null
 
-  const animate: Animate = (context, canvasSize, frameOptions, startTime) => {
-    const elapsed = Date.now() - startTime
-    const progress = (elapsed % DURATION) / DURATION // 0 ~ 1
+  const animate = (props: AnimateProps) => {
+    const {
+      context,
+      canvasSize,
+      frameOptions,
+      frameIndex,
+      addFrameToBuffer,
+      savedFramesRef,
+    } = props
 
-    // ease-in-out
+    // 프레임 진행률 계산
+    const progress = frameIndex / FRAME_COUNT
     const rotation =
       MIN_ROTATION +
       (MAX_ROTATION - MIN_ROTATION) *
         (0.5 + 0.5 * Math.sin(progress * Math.PI * 2))
 
-    renderFrame(context, canvasSize, {
-      ...frameOptions,
-      rotation,
-    })
+    // 캔버스 렌더링
+    renderFrame(context, canvasSize, { ...frameOptions, rotation })
 
-    timer = requestAnimationFrame(() =>
-      animate(context, canvasSize, frameOptions, startTime),
-    )
+    // 프레임 저장
+    if (savedFramesRef.current.length < FRAME_COUNT) {
+      addFrameToBuffer(context)
+    }
+
+    // 다음 프레임 실행
+    timer = setTimeout(() => {
+      animate({ ...props, frameIndex: frameIndex + 1 })
+    }, FRAME_INTERVAL)
   }
 
-  return (context, canvasSize, frameOptions) => {
-    if (timer) cancelAnimationFrame(timer)
-    const startTime = Date.now()
-    animate(context, canvasSize, frameOptions, startTime)
+  return (
+    context,
+    canvasSize,
+    frameOptions,
+    savedFramesRef,
+    addFrameToBuffer,
+  ) => {
+    if (timer) clearTimeout(timer)
+
+    animate({
+      context,
+      canvasSize,
+      frameOptions,
+      frameIndex: 0,
+      addFrameToBuffer,
+      savedFramesRef,
+    })
 
     return () => {
-      if (timer) cancelAnimationFrame(timer)
+      if (timer) clearTimeout(timer)
     }
   }
 }
-
 const wobble = createWobbler()
 
 export default wobble

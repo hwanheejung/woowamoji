@@ -27,7 +27,16 @@ export const EFFECT_SETTINGS: Record<TextEffect, any> = {
       MAX_SCALE: 1.2,
     }
   })(),
-  [TextEffect.WOBBLE]: {},
+  [TextEffect.WOBBLE]: (() => {
+    const FRAME_COUNT = 15
+    const DURATION = 1200
+    return {
+      FRAME_COUNT,
+      FRAME_INTERVAL: DURATION / FRAME_COUNT,
+      MIN_ROTATION: -10,
+      MAX_ROTATION: 10,
+    }
+  })(),
   [TextEffect.SPIN]: {
     FRAME_COUNT: 30,
     FRAME_INTERVAL: 50,
