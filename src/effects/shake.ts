@@ -1,45 +1,78 @@
+import { EFFECT_SETTINGS } from '@/constants'
 import { FrameRenderOptions } from '@/contexts/FrameContext'
 import renderFrame from '@/graphics/renderFrame'
+import { Timer } from '@/utils/types'
+import { RefObject } from 'react'
 import { EffectArgs } from '.'
 
-const DURATION = 300
-const SHAKE_INTENSITY = 2 // 흔들리는 범위 (px)
+const { FRAME_COUNT, FRAME_INTERVAL, SHAKE_INTENSITY } =
+  EFFECT_SETTINGS['shake']
 
-type Animate = (
-  context: CanvasRenderingContext2D,
-  canvasSize: number,
-  frameOptions: FrameRenderOptions,
-  startTime: number,
-) => void
+interface AnimateProps {
+  context: CanvasRenderingContext2D
+  canvasSize: number
+  frameOptions: FrameRenderOptions
+  frameIndex: number
+  addFrameToBuffer: (ctx: CanvasRenderingContext2D) => void
+  savedFramesRef: RefObject<ImageData[]>
+}
 
 const createShaker = (): EffectArgs => {
-  let timer: number | null = null
+  let timer: Timer = null
 
-  const animate: Animate = (context, canvasSize, frameOptions, startTime) => {
-    const elapsed = Date.now() - startTime
-    const progress = (elapsed % DURATION) / DURATION
+  const animate = (props: AnimateProps) => {
+    const {
+      context,
+      canvasSize,
+      frameOptions,
+      frameIndex,
+      addFrameToBuffer,
+      savedFramesRef,
+    } = props
 
+    // 프레임 진행률 계산 (0 ~ 1)
+    const progress = frameIndex / FRAME_COUNT
     const shakeX =
       (Math.sin(progress * Math.PI * 10) + (Math.random() - 0.5) * 0.5) *
       SHAKE_INTENSITY
 
+    // 캔버스 렌더링
     renderFrame(context, canvasSize, {
       ...frameOptions,
       position: { x: shakeX, y: 0 },
     })
 
-    timer = requestAnimationFrame(() =>
-      animate(context, canvasSize, frameOptions, startTime),
-    )
+    // 프레임 저장
+    if (savedFramesRef.current.length < FRAME_COUNT) {
+      addFrameToBuffer(context)
+    }
+
+    // 다음 프레임 실행
+    timer = setTimeout(() => {
+      animate({ ...props, frameIndex: frameIndex + 1 })
+    }, FRAME_INTERVAL)
   }
 
-  return (context, canvasSize, frameOptions) => {
-    if (timer) cancelAnimationFrame(timer)
-    const startTime = Date.now()
-    animate(context, canvasSize, frameOptions, startTime)
+  return (
+    context,
+    canvasSize,
+    frameOptions,
+    savedFramesRef,
+    addFrameToBuffer,
+  ) => {
+    if (timer) clearTimeout(timer)
+
+    animate({
+      context,
+      canvasSize,
+      frameOptions,
+      frameIndex: 0,
+      addFrameToBuffer,
+      savedFramesRef,
+    })
 
     return () => {
-      if (timer) cancelAnimationFrame(timer)
+      if (timer) clearTimeout(timer)
     }
   }
 }

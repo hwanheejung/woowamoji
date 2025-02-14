@@ -56,8 +56,9 @@ export const EFFECT_SETTINGS: Record<TextEffect, any> = {
     }
   })(),
   [TextEffect.SHAKE]: {
-    FRAME_COUNT: 30,
-    FRAME_INTERVAL: 50,
+    FRAME_COUNT: 15,
+    FRAME_INTERVAL: 25,
+    SHAKE_INTENSITY: 2,
   },
   [TextEffect.BOUNCE]: {
     FRAME_COUNT: 30,
