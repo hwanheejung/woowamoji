@@ -1,12 +1,11 @@
+import { EFFECT_SETTINGS } from '@/constants'
 import { FrameRenderOptions } from '@/contexts/FrameContext'
 import renderFrame from '@/graphics/renderFrame'
 import { Timer } from '@/utils/types'
 import { RefObject } from 'react'
 import { EffectArgs } from '.'
 
-const DELAY = 500
-const FRAMES_COUNT = 2
-
+const { FRAME_COUNT, FRAME_INTERVAL } = EFFECT_SETTINGS['blink']
 interface AnimateProps {
   context: CanvasRenderingContext2D
   canvasSize: number
@@ -33,7 +32,7 @@ const createBlinker = (): EffectArgs => {
       opacity: visible ? 1 : 0,
     })
 
-    if (savedFramesRef.current.length < FRAMES_COUNT) {
+    if (savedFramesRef.current.length < FRAME_COUNT) {
       addFrameToBuffer(context)
     }
 
@@ -43,7 +42,7 @@ const createBlinker = (): EffectArgs => {
           ...props,
           visible: !visible,
         }),
-      DELAY,
+      FRAME_INTERVAL,
     )
   }
 
@@ -59,9 +58,9 @@ const createBlinker = (): EffectArgs => {
       context,
       canvasSize,
       frameOptions,
-      visible: true,
       savedFramesRef,
       addFrameToBuffer,
+      visible: true,
     })
 
     return () => {

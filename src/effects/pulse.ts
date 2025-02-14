@@ -1,26 +1,36 @@
+import { EFFECT_SETTINGS } from '@/constants'
 import { FrameRenderOptions } from '@/contexts/FrameContext'
 import renderFrame from '@/graphics/renderFrame'
+import { Timer } from '@/utils/types'
+import { RefObject } from 'react'
 import { EffectArgs } from '.'
 
-const DURATION = 1200
-const MIN_SCALE = 0.92
-const MAX_SCALE = 1.2
+const { MIN_SCALE, MAX_SCALE, FRAME_COUNT, FRAME_INTERVAL } =
+  EFFECT_SETTINGS['pulse']
 
-type Animate = (
-  context: CanvasRenderingContext2D,
-  canvasSize: number,
-  frameOptions: FrameRenderOptions,
-  startTime: number,
-) => void
+interface AnimateProps {
+  context: CanvasRenderingContext2D
+  canvasSize: number
+  frameOptions: FrameRenderOptions
+  savedFramesRef: RefObject<ImageData[]>
+  addFrameToBuffer: (ctx: CanvasRenderingContext2D) => void
+  frameIndex: number
+}
 
 const createPulser = (): EffectArgs => {
-  let timer: number | null = null
+  let timer: Timer = null
 
-  const animate: Animate = (context, canvasSize, frameOptions, startTime) => {
-    const elapsed = Date.now() - startTime
-    const progress = (elapsed % DURATION) / DURATION // 0 ~ 1
+  const animate = (props: AnimateProps) => {
+    const {
+      context,
+      canvasSize,
+      frameOptions,
+      savedFramesRef,
+      addFrameToBuffer,
+      frameIndex,
+    } = props
 
-    // ease-in-out
+    const progress = frameIndex / FRAME_COUNT // 0 ~ 1
     const scale =
       MIN_SCALE +
       (MAX_SCALE - MIN_SCALE) * (0.5 + 0.5 * Math.sin(progress * Math.PI * 2))
@@ -30,18 +40,33 @@ const createPulser = (): EffectArgs => {
       scale,
     })
 
-    timer = requestAnimationFrame(() =>
-      animate(context, canvasSize, frameOptions, startTime),
-    )
+    // 프레임 저장
+    if (savedFramesRef.current.length < FRAME_COUNT) addFrameToBuffer(context)
+
+    timer = setTimeout(() => {
+      animate({ ...props, frameIndex: frameIndex + 1 })
+    }, FRAME_INTERVAL)
   }
 
-  return (context, canvasSize, frameOptions) => {
-    if (timer) cancelAnimationFrame(timer)
-    const startTime = Date.now()
-    animate(context, canvasSize, frameOptions, startTime)
+  return (
+    context,
+    canvasSize,
+    frameOptions,
+    savedFramesRef,
+    addFrameToBuffer,
+  ) => {
+    if (timer) clearTimeout(timer)
+    animate({
+      context,
+      canvasSize,
+      frameOptions,
+      savedFramesRef,
+      addFrameToBuffer,
+      frameIndex: 0,
+    })
 
     return () => {
-      if (timer) cancelAnimationFrame(timer)
+      if (timer) clearTimeout(timer)
     }
   }
 }

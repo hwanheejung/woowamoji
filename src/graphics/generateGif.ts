@@ -8,6 +8,7 @@ import { mergeFrameWithBackground } from './mergeFrameWithBackground'
 const generateGifFromBuffer = async (
   backgroundImage: ImageData,
   frames: ImageData[],
+  interval: number,
 ) => {
   if (typeof window === 'undefined') return
 
@@ -23,7 +24,7 @@ const generateGifFromBuffer = async (
 
   // 🟢 GIF 프레임 추가
   gifFrames.forEach(({ imageData, width, height }) => {
-    gif.addFrame(imageData, { copy: true, delay: 300, width, height })
+    gif.addFrame(imageData, { copy: true, delay: interval, width, height })
   })
 
   // 🟢 GIF 생성 완료 후 다운로드

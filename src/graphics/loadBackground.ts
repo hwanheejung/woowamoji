@@ -69,7 +69,7 @@ const applyBackgroundImage = (
 }
 
 /**
- * 현재 캔버스 상태를 ImageData로 저장
+ * 캡쳐를 위한 배경을 ImageData로 저장
  */
 const captureBackgroundImage = (
   context: CanvasRenderingContext2D,
