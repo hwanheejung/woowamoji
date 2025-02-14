@@ -1,4 +1,5 @@
 import { useFrame } from '@/contexts/FrameContext'
+import { useGif } from '@/contexts/GifContext'
 import {
   EffectArgs,
   blink,
@@ -12,7 +13,7 @@ import {
   wobble,
 } from '@/effects'
 import renderFrame from '@/graphics/renderFrame'
-import { useCallback, useMemo, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
 
 export const useEffectHandler = (
   contextRef: React.RefObject<CanvasRenderingContext2D | null>,
@@ -20,6 +21,7 @@ export const useEffectHandler = (
 ) => {
   const { text, fontFamily, color, effect } = useFrame()
   const effectCleanupRef = useRef<(() => void) | null>(null)
+  const { savedFramesRef, addFrameToBuffer, clearFrameBuffer } = useGif()
 
   const frameOptions = useMemo(
     () => ({ text, fontFamily, color, effect }),
@@ -49,11 +51,19 @@ export const useEffectHandler = (
     const ctx = contextRef.current
     if (!ctx) return
 
+    clearFrameBuffer()
     if (effect === 'none') {
       renderFrame(ctx, canvasSize, frameOptions)
+      addFrameToBuffer(ctx, canvasSize)
     } else {
       effectCleanupRef.current =
-        effectHandlers[effect]?.(ctx, canvasSize, frameOptions) ?? null
+        effectHandlers[effect]?.(
+          ctx,
+          canvasSize,
+          frameOptions,
+          savedFramesRef,
+          addFrameToBuffer,
+        ) ?? null
     }
   }, [contextRef, frameOptions, effectHandlers])
 
