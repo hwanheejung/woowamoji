@@ -13,6 +13,7 @@ import {
   wobble,
 } from '@/effects'
 import renderFrame from '@/graphics/renderFrame'
+import ensure from '@/utils/ensure'
 import { useCallback, useMemo, useRef } from 'react'
 
 export const useEffectHandler = (
@@ -48,8 +49,7 @@ export const useEffectHandler = (
     effectCleanupRef.current?.()
     effectCleanupRef.current = null
 
-    const ctx = contextRef.current
-    if (!ctx) return
+    const ctx = ensure(contextRef.current)
 
     clearFrameBuffer()
     if (effect === 'none') {

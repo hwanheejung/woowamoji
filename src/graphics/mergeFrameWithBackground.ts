@@ -1,3 +1,5 @@
+import ensure from '@/utils/ensure'
+
 export const mergeFrameWithBackground = (
   backgroundImage: ImageData,
   frame: ImageData,
@@ -6,8 +8,7 @@ export const mergeFrameWithBackground = (
 
   // 🟢 새로운 캔버스 생성
   const offscreenCanvas = createCanvas(frameSize, frameSize)
-  const offscreenCtx = getCanvasContext(offscreenCanvas)
-  if (!offscreenCtx) return null
+  const offscreenCtx = ensure(getCanvasContext(offscreenCanvas))
 
   // 🟢 배경 이미지 적용
   drawImageDataToCanvas(offscreenCtx, backgroundImage, frameSize)
@@ -29,13 +30,8 @@ const createCanvas = (width: number, height: number): HTMLCanvasElement => {
 // 캔버스 컨텍스트 가져오기
 const getCanvasContext = (
   canvas: HTMLCanvasElement,
-): CanvasRenderingContext2D | null => {
-  const ctx = canvas.getContext('2d')
-  if (!ctx) {
-    console.error('❌ Error: Failed to get 2D context for canvas')
-    return null
-  }
-  return ctx
+): CanvasRenderingContext2D => {
+  return ensure(canvas.getContext('2d'))
 }
 
 // ImageData를 캔버스에 그리는 함수
@@ -46,7 +42,6 @@ const drawImageDataToCanvas = (
 ) => {
   const tempCanvas = createCanvas(imageData.width, imageData.height)
   const tempCtx = getCanvasContext(tempCanvas)
-  if (!tempCtx) return
 
   tempCtx.putImageData(imageData, 0, 0)
 

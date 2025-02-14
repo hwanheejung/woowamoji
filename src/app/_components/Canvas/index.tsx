@@ -2,12 +2,13 @@
 
 import { useCanvasRefs } from '@/contexts/CanvasContext'
 import { useFrame } from '@/contexts/FrameContext'
+import { useGif } from '@/contexts/GifContext'
 import loadBackground from '@/graphics/loadBackground'
 import { HTMLAttributes, useEffect } from 'react'
 import { twMerge } from 'tailwind-merge'
 import { useCanvas } from './_hooks/useCanvas'
 import { useEffectHandler } from './_hooks/useEffectHandler'
-import { useGif } from '@/contexts/GifContext'
+import ensure from '@/utils/ensure'
 
 const CANVAS_SIZE = 50
 
@@ -38,8 +39,8 @@ const Canvas = ({ className }: CanvasProps) => {
 
   // 🟢 배경 캔버스 업데이트
   useEffect(() => {
-    const bgCtx = bgContextRef.current
-    if (!bgCtx) return
+    const bgCtx = ensure(bgContextRef.current)
+
     loadBackground(bgCtx, CANVAS_SIZE, setBackgroundImage, {
       backGroundColor,
       backgroundTheme,

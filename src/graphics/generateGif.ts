@@ -1,3 +1,4 @@
+import ensure from '@/utils/ensure'
 import { mergeFrameWithBackground } from './mergeFrameWithBackground'
 
 const generateGifFromBuffer = async (
@@ -13,20 +14,13 @@ const generateGifFromBuffer = async (
   })
 
   frames.forEach((frame) => {
-    const combinedCanvas = mergeFrameWithBackground(backgroundImage, frame)
-    if (!combinedCanvas) {
-      console.error('❌ Error: Failed to merge frame with background')
-      return
-    }
-    const combinedCtx = combinedCanvas.getContext('2d')
-    if (!combinedCtx) {
-      console.error('❌ Error: Failed to get 2D context from merged canvas')
-      return
-    }
+    const combinedCanvas = ensure(
+      mergeFrameWithBackground(backgroundImage, frame),
+    )
+    const combinedCtx = ensure(combinedCanvas.getContext('2d'))
 
     const width = Math.round(combinedCanvas.width)
     const height = Math.round(combinedCanvas.height)
-
     const imageData = combinedCtx.getImageData(0, 0, width, height)
 
     gif.addFrame(imageData, {
