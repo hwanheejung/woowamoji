@@ -7,26 +7,27 @@ import { EffectArgs } from '.'
 const DELAY = 500
 const FRAMES_COUNT = 2
 
-type Animate = (
-  context: CanvasRenderingContext2D,
-  canvasSize: number,
-  frameOptions: FrameRenderOptions,
-  visible: boolean,
-  savedFramesRef: RefObject<ImageData[]>,
-  frameBuffer: (ctx: CanvasRenderingContext2D, canvasSize: number) => void,
-) => void
+interface AnimateProps {
+  context: CanvasRenderingContext2D
+  canvasSize: number
+  frameOptions: FrameRenderOptions
+  visible: boolean
+  savedFramesRef: RefObject<ImageData[]>
+  addFrameToBuffer: (ctx: CanvasRenderingContext2D, canvasSize: number) => void
+}
 
 const createBlinker = (): EffectArgs => {
   let timer: Timer = null
 
-  const animate: Animate = (
-    context,
-    canvasSize,
-    frameOptions,
-    visible,
-    savedFramesRef,
-    addFrameToBuffer,
-  ) => {
+  const animate = (props: AnimateProps) => {
+    const {
+      context,
+      canvasSize,
+      frameOptions,
+      visible,
+      savedFramesRef,
+      addFrameToBuffer,
+    } = props
     renderFrame(context, canvasSize, {
       ...frameOptions,
       opacity: visible ? 1 : 0,
@@ -38,14 +39,10 @@ const createBlinker = (): EffectArgs => {
 
     timer = setTimeout(
       () =>
-        animate(
-          context,
-          canvasSize,
-          frameOptions,
-          !visible,
-          savedFramesRef,
-          addFrameToBuffer,
-        ),
+        animate({
+          ...props,
+          visible: !visible,
+        }),
       DELAY,
     )
   }
@@ -58,14 +55,14 @@ const createBlinker = (): EffectArgs => {
     addFrameToBuffer,
   ) => {
     if (timer) clearTimeout(timer)
-    animate(
+    animate({
       context,
       canvasSize,
       frameOptions,
-      true,
+      visible: true,
       savedFramesRef,
       addFrameToBuffer,
-    )
+    })
 
     return () => {
       if (timer) clearTimeout(timer)

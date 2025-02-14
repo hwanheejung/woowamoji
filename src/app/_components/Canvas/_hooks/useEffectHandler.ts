@@ -13,7 +13,7 @@ import {
   wobble,
 } from '@/effects'
 import renderFrame from '@/graphics/renderFrame'
-import { useCallback, useEffect, useMemo, useRef } from 'react'
+import { useCallback, useMemo, useRef } from 'react'
 
 export const useEffectHandler = (
   contextRef: React.RefObject<CanvasRenderingContext2D | null>,
