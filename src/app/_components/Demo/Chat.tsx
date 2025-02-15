@@ -1,9 +1,10 @@
 'use client'
 
+import Image from 'next/image'
 import { ReactNode, useState } from 'react'
 
 const ProfilePicture = () => (
-  <div className="w-[30px] h-[30px] rounded-md overflow-hidden m-2">
+  <div className="m-2 h-[30px] w-[30px] overflow-hidden rounded-md">
     <svg
       width="30"
       height="30"
@@ -21,26 +22,46 @@ const ProfilePicture = () => (
   </div>
 )
 
-const Reaction = ({ emoji }: { emoji: ReactNode }) => {
-  const [count, setCount] = useState<number>(1)
+const Reaction = ({
+  emoji,
+  count = 1,
+}: {
+  emoji: ReactNode
+  count?: number
+}) => {
+  const [reacted, setReacted] = useState<boolean>(false)
+
+  const handleClick = () => {
+    setReacted((prev) => !prev)
+  }
 
   return (
-    <button>
+    <button
+      onClick={handleClick}
+      className="flex items-center gap-2 rounded-full bg-gray-900/5 px-2 py-1 text-sm"
+    >
       {emoji}
-      <span>{count}</span>
+      <span className="font-euljiro font-thin">
+        {reacted ? count + 1 : count}
+      </span>
     </button>
   )
 }
+
+const EmojiImage = ({ src }: { src: string }) => (
+  <Image src={src} alt="emoji" width={20} height={20} />
+)
 
 interface ChatProps {
   sender: string
   time: `${number}:${number} ${'AM' | 'PM'}`
   message: ReactNode
+  children: ReactNode
 }
 
-const Chat = ({ sender, time, message }: ChatProps) => {
+const Chat = ({ sender, time, message, children }: ChatProps) => {
   return (
-    <div className="flex gap-2 my-4 p-2 rounded-lg">
+    <div className="my-4 flex gap-2 rounded-lg p-2">
       <ProfilePicture />
       <div>
         <div className="flex items-center gap-4">
@@ -48,9 +69,12 @@ const Chat = ({ sender, time, message }: ChatProps) => {
           <span className="font-sans text-xs opacity-50">{time}</span>
         </div>
         <div className="font-sans">{message}</div>
+        <div className="mt-2 flex gap-2">{children}</div>
       </div>
     </div>
   )
 }
 
+Chat.Reaction = Reaction
+Chat.EmojiImage = EmojiImage
 export default Chat
