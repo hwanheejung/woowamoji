@@ -38,7 +38,7 @@ const Reaction = ({
   return (
     <button
       onClick={handleClick}
-      className="flex items-center gap-2 rounded-full bg-gray-900/5 px-2 py-1 text-sm"
+      className={`flex items-center gap-2 rounded-full border border-gray-900/0 ${reacted ? 'bg-blue/10' : 'bg-gray-900/5 hover:border-gray-900'} px-2 py-1 text-sm`}
     >
       {emoji}
       <span className="font-euljiro font-thin">
@@ -49,7 +49,7 @@ const Reaction = ({
 }
 
 const EmojiImage = ({ src }: { src: string }) => (
-  <Image src={src} alt="emoji" width={20} height={20} />
+  <Image src={src} alt="emoji" width={20} height={20} unoptimized />
 )
 
 interface ChatProps {

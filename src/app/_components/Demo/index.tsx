@@ -8,7 +8,7 @@ const Demo = () => {
     <div className="min-w-[450px]">
       <HoveredChat>
         <Chat sender="빌리" time="1:17 PM" message="반가와요~">
-          <Chat.Reaction emoji="👍" count={25} />
+          <Chat.Reaction emoji="👋" count={25} />
           <Chat.Reaction
             emoji={<Chat.EmojiImage src="/emojis/hello.gif" />}
             count={42}
@@ -39,6 +39,7 @@ const Demo = () => {
           count={3}
         />
         <Chat.Reaction emoji="🚀" count={23} />
+        <Chat.Reaction emoji="✅" count={17} />
       </Chat>
       <Chat
         sender="빌리"
