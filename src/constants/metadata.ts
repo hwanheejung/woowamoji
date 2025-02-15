@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 
 export const TITLE = {
   kr: '우아모지',
-  en: 'WoowaMoji',
+  en: 'Text to GIF',
 } as const
 
 export const SITE_METADATA: Metadata = {
@@ -16,4 +16,5 @@ export const SITE_METADATA: Metadata = {
     'slack',
     'discord',
   ],
+  icons: ['/favicon.ico'],
 }
