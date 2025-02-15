@@ -74,7 +74,7 @@ const renderText = (
 
   const metrics = ctx.measureText(text)
   const adjust =
-    metrics.actualBoundingBoxAscent * FONT_ADJUSTMENT_RATIO[fontFamily as Font]
+    metrics.actualBoundingBoxDescent * FONT_ADJUSTMENT_RATIO[fontFamily as Font]
 
   ctx.textAlign = 'start'
   ctx.textBaseline = 'middle'
