@@ -5,23 +5,23 @@ import { Timer } from '@/utils/types'
 import { RefObject } from 'react'
 import { EffectArgs } from '.'
 
-const { SPEED, FRAME_COUNT_PER_WORD, FRAME_INTERVAL } =
-  EFFECT_SETTINGS['slideX']
+const { JUMP, FRAME_INTERVAL } = EFFECT_SETTINGS['slideX']
 
 interface AnimateProps {
   context: CanvasRenderingContext2D
   canvasSize: number
   frameOptions: FrameRenderOptions
   x: number
+  firstLetterWidth: number
   text: string
   fontSize: number
-  frameIndex: number
   addFrameToBuffer: (ctx: CanvasRenderingContext2D) => void
   savedFramesRef: RefObject<ImageData[]>
 }
 
 const createSlider = (): EffectArgs => {
   let timer: Timer = null
+  let saved = false
 
   const animate = (props: AnimateProps) => {
     const {
@@ -29,37 +29,37 @@ const createSlider = (): EffectArgs => {
       canvasSize,
       frameOptions,
       x,
+      firstLetterWidth,
       text,
       fontSize,
-      frameIndex,
       addFrameToBuffer,
       savedFramesRef,
     } = props
 
-    const FRAME_COUNT = text.length * FRAME_COUNT_PER_WORD
-
-    const { width } = renderFrame(context, canvasSize, {
+    const { x: currentX, width } = renderFrame(context, canvasSize, {
       ...frameOptions,
       fontSize,
-      text,
+      text: `${text}${text.slice(0, 1)}`,
       position: { x, y: 0 },
     })
 
-    // 다음 위치 계산
-    const nextX = x - SPEED / FRAME_COUNT_PER_WORD
+    let nextX = x
 
-    // 왼쪽 끝을 넘어가면 다시 오른쪽에서 시작
-    const resetX = canvasSize + canvasSize / 4
-    const newX = nextX < -width - canvasSize / 2 ? resetX : nextX
+    if (currentX + width - firstLetterWidth - JUMP * 3 <= 0) {
+      nextX = 0
+      saved = true
+    } else {
+      nextX -= JUMP
+    }
 
     // 프레임 저장
-    if (savedFramesRef.current.length < FRAME_COUNT) {
+    if (!saved || savedFramesRef.current.length === 0) {
       addFrameToBuffer(context)
     }
 
     // 다음 프레임 실행
     timer = setTimeout(() => {
-      animate({ ...props, x: newX, frameIndex: frameIndex + 1 })
+      animate({ ...props, x: nextX })
     }, FRAME_INTERVAL)
   }
 
@@ -71,12 +71,13 @@ const createSlider = (): EffectArgs => {
     addFrameToBuffer,
   ) => {
     if (timer) clearTimeout(timer)
+    saved = false
 
     const text = frameOptions.text || ''
     if (!text) return
 
     // 첫 번째 글자의 크기 계산
-    const { fontSize } = renderFrame(context, canvasSize, {
+    const { fontSize, width } = renderFrame(context, canvasSize, {
       ...frameOptions,
       text: text[0],
     })
@@ -87,9 +88,9 @@ const createSlider = (): EffectArgs => {
       canvasSize,
       frameOptions,
       x: 0,
+      firstLetterWidth: width,
       text,
       fontSize,
-      frameIndex: 0,
       addFrameToBuffer,
       savedFramesRef,
     })

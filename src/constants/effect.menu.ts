@@ -70,8 +70,7 @@ export const EFFECT_SETTINGS: Record<TextEffect, any> = {
     MAX_FRAME_COUNT: 15,
   },
   [TextEffect.SLIDEX]: {
-    SPEED: 15,
-    FRAME_COUNT_PER_WORD: 5,
-    FRAME_INTERVAL: 20,
+    FRAME_INTERVAL: 50,
+    JUMP: 5,
   },
 }

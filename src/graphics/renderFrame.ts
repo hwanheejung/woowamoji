@@ -70,14 +70,15 @@ const renderText = (
   fontFamily: string,
   fontSize: number,
 ) => {
+  ctx.font = `${fontSize}px ${fontFamily}`
+
   const metrics = ctx.measureText(text)
   const adjust =
     metrics.actualBoundingBoxAscent * FONT_ADJUSTMENT_RATIO[fontFamily as Font]
 
-  ctx.font = `${fontSize}px ${fontFamily}`
-  ctx.textAlign = 'left'
+  ctx.textAlign = 'start'
   ctx.textBaseline = 'middle'
-  ctx.fillText(text, canvasSize / 2, canvasSize / 2 + adjust)
+  ctx.fillText(text, 0, canvasSize / 2 + adjust)
   return metrics
 }
 
@@ -93,13 +94,13 @@ const renderCenteredText = (
     fontFamily,
     canvasSize,
   )
+
   const adjust =
     metrics.actualBoundingBoxDescent * FONT_ADJUSTMENT_RATIO[fontFamily as Font]
 
   // 중앙 정렬
   ctx.textAlign = 'center' // horizontal
   ctx.textBaseline = 'middle' // vertical
-
   ctx.fillText(text, canvasSize / 2, canvasSize / 2 + adjust)
 
   return { metrics, fontSize }
@@ -112,6 +113,7 @@ const calculateDimensions = (
   const width = metrics.width
   const height =
     metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent
+
   return {
     x: position.x,
     y: position.y - metrics.actualBoundingBoxAscent,
