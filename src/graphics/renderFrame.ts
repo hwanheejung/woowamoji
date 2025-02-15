@@ -1,4 +1,4 @@
-import { Font, TextColor } from '@/constants'
+import { FONT_ADJUSTMENT_RATIO, Font, TextColor } from '@/constants'
 import {
   BackgroundRenderOptions,
   FrameRenderOptions,
@@ -60,7 +60,7 @@ const adjustFontSizeToFit = (
   // 최종 폰트 적용
   ctx.font = `${fontSize}px ${fontFamily}`
 
-  return fontSize
+  return { fontSize, metrics }
 }
 
 const renderText = (
@@ -70,11 +70,15 @@ const renderText = (
   fontFamily: string,
   fontSize: number,
 ) => {
+  const metrics = ctx.measureText(text)
+  const adjust =
+    metrics.actualBoundingBoxAscent * FONT_ADJUSTMENT_RATIO[fontFamily as Font]
+
   ctx.font = `${fontSize}px ${fontFamily}`
   ctx.textAlign = 'left'
   ctx.textBaseline = 'middle'
-  ctx.fillText(text, canvasSize / 2, canvasSize / 2)
-  return ctx.measureText(text)
+  ctx.fillText(text, canvasSize / 2, canvasSize / 2 + adjust)
+  return metrics
 }
 
 const renderCenteredText = (
@@ -83,15 +87,22 @@ const renderCenteredText = (
   text: string,
   fontFamily: string,
 ) => {
-  const fontSize = adjustFontSizeToFit(ctx, text, fontFamily, canvasSize)
+  const { metrics, fontSize } = adjustFontSizeToFit(
+    ctx,
+    text,
+    fontFamily,
+    canvasSize,
+  )
+  const adjust =
+    metrics.actualBoundingBoxDescent * FONT_ADJUSTMENT_RATIO[fontFamily as Font]
 
   // 중앙 정렬
   ctx.textAlign = 'center' // horizontal
   ctx.textBaseline = 'middle' // vertical
 
-  ctx.fillText(text, canvasSize / 2, canvasSize / 2)
+  ctx.fillText(text, canvasSize / 2, canvasSize / 2 + adjust)
 
-  return { metrics: ctx.measureText(text), fontSize }
+  return { metrics, fontSize }
 }
 
 const calculateDimensions = (

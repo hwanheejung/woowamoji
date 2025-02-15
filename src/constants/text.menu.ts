@@ -65,6 +65,20 @@ export const FONTS: Record<Font, FontInfo> = Object.values(Font).reduce(
   {} as Record<Font, FontInfo>,
 )
 
+export const FONT_ADJUSTMENT_RATIO: Record<Font, number> = {
+  kkubulim: 0,
+  euljiroOraeorae: 0.5,
+  euljiro10yearsLater: 0.5,
+  euljiro: 0.5,
+  hannaPro: 0,
+  hannaAir: 0,
+  hanna11yrsOld: 0,
+  kirangHaerang: 0.5,
+  yeonsung: 0.9,
+  dohyeon: 0.7,
+  jua: 0,
+}
+
 // TEXT_COLOR
 export enum TextColor {
   BLACK = '#1A1A1A',
