@@ -32,6 +32,7 @@ const Item = ({ type }: { type: TextEffect }) => {
         alt={type}
         width={35}
         height={35}
+        unoptimized
       />
     </button>
   )

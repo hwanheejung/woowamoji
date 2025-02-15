@@ -1,9 +1,19 @@
+import { Metadata } from 'next'
+
 export const TITLE = {
   kr: '우아모지',
   en: 'WoowaMoji',
 } as const
 
-export const SITE_METADATA = {
+export const SITE_METADATA: Metadata = {
   title: TITLE.en,
-  description: '나만의 커스텀 GIF 이모지 만들기',
-} as const
+  description: 'Text to GIF Converter',
+  keywords: [
+    'text to gif',
+    'text gif generator',
+    'animated text',
+    'gif maker',
+    'slack',
+    'discord',
+  ],
+}

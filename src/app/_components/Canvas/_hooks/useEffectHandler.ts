@@ -51,7 +51,10 @@ export const useEffectHandler = (
 
     const ctx = ensure(contextRef.current)
 
+    // 저장된 프레임 초기화
     clearFrameBuffer()
+
+    // 효과 적용
     if (effect === 'none') {
       renderFrame(ctx, canvasSize, frameOptions)
       addFrameToBuffer(ctx)
