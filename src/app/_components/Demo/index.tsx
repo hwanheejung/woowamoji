@@ -40,6 +40,10 @@ const Demo = () => {
         />
         <Chat.Reaction emoji="🚀" count={23} />
         <Chat.Reaction emoji="✅" count={17} />
+        <Chat.Reaction
+          emoji={<Chat.EmojiImage src="/emojis/use.gif" />}
+          count={1}
+        />
       </Chat>
       <Chat
         sender="빌리"
@@ -51,6 +55,10 @@ const Demo = () => {
           count={1}
         />
         <Chat.Reaction emoji="👍" count={3} />
+        <Chat.Reaction
+          emoji={<Chat.EmojiImage src="/emojis/reviewed.gif" />}
+          count={1}
+        />
       </Chat>
     </div>
   )
