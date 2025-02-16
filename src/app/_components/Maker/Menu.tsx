@@ -1,5 +1,5 @@
 import { CATEGORY, Category, MENU_MAP, SubCategory } from '@/constants/menu'
-import { Dispatch, SetStateAction } from 'react'
+import { useState } from 'react'
 
 export const makeMenu = <C extends keyof typeof MENU_MAP>(
   category: C,
@@ -19,13 +19,10 @@ interface MenuData {
   Component: React.FC
 }
 
-interface MenuProps {
-  menus: MenuData[]
-  currentCategory: Category
-  setCurrentCategory: Dispatch<SetStateAction<Category>>
-}
-
-const Menu = ({ menus, currentCategory, setCurrentCategory }: MenuProps) => {
+const Menu = ({ menus }: { menus: MenuData[] }) => {
+  const [currentCategory, setCurrentCategory] = useState<Category>(
+    Category.TYPE,
+  )
   return (
     <div className="flex flex-1 flex-col items-center overflow-hidden">
       {/* 카테고리 선택 버튼 */}
