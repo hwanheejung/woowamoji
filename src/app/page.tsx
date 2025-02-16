@@ -8,8 +8,8 @@ import Maker from './_components/Maker'
 
 export default function Home() {
   return (
-    <div className="breakpoint:px-20 flex h-dvh min-h-screen flex-col items-center justify-items-center gap-10 px-10 py-20">
-      <header>
+    <div className="breakpoint:px-20 breakpoint:h-dvh flex min-h-screen flex-col items-center justify-items-center gap-8 px-5 py-10">
+      <header className="breakpoint:block hidden">
         <Image
           src="/logo.png"
           alt="우아모지 로고"

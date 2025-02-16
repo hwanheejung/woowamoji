@@ -1,7 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { ReactNode, useState } from 'react'
+import { HTMLAttributes, ReactNode, useState } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 const ProfilePicture = () => (
   <div className="m-2 h-[30px] w-[30px] overflow-hidden rounded-md">
@@ -57,11 +58,18 @@ interface ChatProps {
   time: `${number}:${number} ${'AM' | 'PM'}`
   message: ReactNode
   children: ReactNode
+  className?: HTMLAttributes<HTMLDivElement>['className']
 }
 
-const Chat = ({ sender, time, message, children }: ChatProps) => {
+const Chat = ({
+  sender,
+  time,
+  message,
+  children,
+  className = '',
+}: ChatProps) => {
   return (
-    <div className="my-2 flex gap-2 rounded-lg p-2">
+    <div className={twMerge('my-2 flex gap-2 rounded-lg p-2', className)}>
       <ProfilePicture />
       <div>
         <div className="flex items-center gap-4">

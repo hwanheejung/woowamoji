@@ -39,7 +39,7 @@ const Menu = ({ menus, currentCategory, setCurrentCategory }: MenuProps) => {
               className={`border-b-2 px-5 py-2 text-sm font-semibold transition-colors ${
                 currentCategory === category
                   ? 'border-baeminBlue text-baeminBlue'
-                  : 'text-gray-300 border-gray-100 hover:border-baeminBlue/70 hover:text-baeminBlue/70'
+                  : 'border-gray-100 text-gray-300 hover:border-baeminBlue/70 hover:text-baeminBlue/70'
               }`}
               onClick={() => setCurrentCategory(category)}
             >
@@ -50,7 +50,7 @@ const Menu = ({ menus, currentCategory, setCurrentCategory }: MenuProps) => {
       </nav>
 
       {/* 현재 카테고리에 해당하는 서브 카테고리 렌더링 */}
-      <section className="scrollbar-hide flex w-full flex-1 flex-col justify-start gap-5 overflow-y-scroll pb-10 pt-5">
+      <section className="flex w-full flex-1 flex-col justify-start gap-5 overflow-y-scroll pb-10 pt-5 scrollbar-hide">
         {menus
           .filter((menu) => menu.category === currentCategory)
           .map(({ subCategory, Component }) => (

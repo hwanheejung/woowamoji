@@ -19,7 +19,7 @@ const Layout = ({ children }: { children: ReactNode }) => (
       className="absolute bottom-1 left-1 z-10"
       style={{ width: '110px', height: 'auto' }}
     />
-    <div className="breakpoint:max-w-[400px] flex w-full flex-1 flex-col bg-gray-0 p-10 shadow-[0_0_50px_rgba(0,0,0,0.15)]">
+    <div className="breakpoint:max-w-[400px] breakpoint:p-10 flex w-full flex-1 flex-col bg-gray-0 p-5 shadow-[0_0_50px_rgba(0,0,0,0.15)]">
       {children}
     </div>
   </div>

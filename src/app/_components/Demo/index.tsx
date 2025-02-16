@@ -5,7 +5,7 @@ import HoveredChat from './HoveredChat'
 
 const Demo = () => {
   return (
-    <div className="breakpoint:block hidden w-full max-w-[400px] pt-10">
+    <div className="h-full w-full max-w-[400px] overflow-hidden overflow-y-scroll pt-10 scrollbar-hide">
       <HoveredChat>
         <Chat sender="빌리" time="1:17 PM" message="반가와요~">
           <Chat.Reaction emoji="👋" count={25} />
@@ -29,6 +29,7 @@ const Demo = () => {
             </ol>
           </>
         }
+        className="breakpoint:block hidden"
       >
         <Chat.Reaction
           emoji={<Chat.EmojiImage src="/emojis/wow.gif" />}
@@ -45,10 +46,12 @@ const Demo = () => {
           count={32}
         />
       </Chat>
+
       <Chat
         sender="빌리"
         time="6:30 PM"
         message="PR 올렸습니당 리뷰 부탁드려요~"
+        className="breakpoint:block hidden"
       >
         <Chat.Reaction
           emoji={<Chat.EmojiImage src="/emojis/okay.gif" />}
