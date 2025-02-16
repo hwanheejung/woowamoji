@@ -1,14 +1,14 @@
+import { CanvasProvider } from '@/contexts/CanvasContext'
+import { FrameContextProvider } from '@/contexts/FrameContext'
+import { GifProvider } from '@/contexts/GifContext'
 import Image from 'next/image'
 import Demo from './_components/Demo'
 import Footer from './_components/Footer'
 import Maker from './_components/Maker'
-import { FrameContextProvider } from '@/contexts/FrameContext'
-import { CanvasProvider } from '@/contexts/CanvasContext'
-import { GifProvider } from '@/contexts/GifContext'
 
 export default function Home() {
   return (
-    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-10 p-8 pb-20 sm:p-20">
+    <div className="breakpoint:px-20 flex h-dvh min-h-screen flex-col items-center justify-items-center gap-10 px-10 py-20">
       <header>
         <Image
           src="/logo.png"
@@ -20,8 +20,7 @@ export default function Home() {
           loading="eager"
         />
       </header>
-
-      <main className="row-start-2 flex items-center gap-8">
+      <main className="breakpoint:flex-row flex flex-1 flex-col items-center gap-8 overflow-hidden">
         <FrameContextProvider>
           <CanvasProvider>
             <GifProvider>
@@ -31,7 +30,7 @@ export default function Home() {
           </CanvasProvider>
         </FrameContextProvider>
       </main>
-      <footer className="row-start-3 flex flex-col items-center justify-center gap-2">
+      <footer className="flex flex-col items-center justify-center gap-2">
         <Footer />
       </footer>
     </div>

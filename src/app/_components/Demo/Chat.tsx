@@ -61,7 +61,7 @@ interface ChatProps {
 
 const Chat = ({ sender, time, message, children }: ChatProps) => {
   return (
-    <div className="my-4 flex gap-2 rounded-lg p-2">
+    <div className="my-2 flex gap-2 rounded-lg p-2">
       <ProfilePicture />
       <div>
         <div className="flex items-center gap-4">

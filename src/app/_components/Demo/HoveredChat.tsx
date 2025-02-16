@@ -14,15 +14,9 @@ const HoveredChat = ({ children }: { children: ReactNode }) => {
   return (
     <div className="relative">
       <EmojiContainer>
-        <button className="absolute bottom-2 left-3 h-[50px] w-[50px]">
-          <Canvas className="absolute left-0 top-0" />
-        </button>
-        <button>
-          <span>👍</span>
-        </button>
-        <button>
-          <span>✅</span>
-        </button>
+        <Canvas className="absolute bottom-2 left-3 h-[50px] w-[50px]" />
+        <span className="cursor-default">👍</span>
+        <span className="cursor-default">✅</span>
         <Image src="icons/moreDots.svg" alt="더보기" width={24} height={24} />
       </EmojiContainer>
       <div className="bg-baeminBlue/15">{children}</div>

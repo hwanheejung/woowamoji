@@ -38,6 +38,9 @@ export default {
         foreground: 'var(--foreground)',
       },
       fontFamily: generateFontFamily(),
+      screens: {
+        breakpoint: '920px',
+      },
     },
   },
   plugins: [scrollbarHide],
