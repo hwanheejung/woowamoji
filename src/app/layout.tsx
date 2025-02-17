@@ -2,6 +2,7 @@ import { SITE_METADATA } from '@/constants'
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
+import GoogleAnalytics from './_components/GoogleAnalytics'
 
 const Kkubulim = localFont({
   src: '../../public/fonts/BMKkubulim.otf',
@@ -78,6 +79,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <GoogleAnalytics />
       <body
         className={`${Kkubulim.variable} ${EuljiroOraeorae.variable} ${Euljiro10YearsLater.variable} ${Euljiro.variable} ${HannaPro.variable} ${HannaAir.variable} ${Hanna11YrsOld.variable} ${KirangHaerang.variable} ${Yeonsung.variable} ${Dohyeon.variable} ${Jua.variable} bg-gray-0 font-hannaPro text-gray-900`}
       >
