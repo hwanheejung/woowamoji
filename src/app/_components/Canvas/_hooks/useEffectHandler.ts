@@ -68,7 +68,16 @@ export const useEffectHandler = (
           addFrameToBuffer,
         ) ?? null
     }
-  }, [contextRef, frameOptions, effectHandlers])
+  }, [
+    contextRef,
+    effect,
+    frameOptions,
+    effectHandlers,
+    addFrameToBuffer,
+    clearFrameBuffer,
+    canvasSize,
+    savedFramesRef,
+  ])
 
   return { frameOptions, applyEffect }
 }

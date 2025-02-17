@@ -11,6 +11,7 @@ export enum TextEffect {
   SLIDEX = 'slideX',
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const EFFECT_SETTINGS: Record<TextEffect, any> = {
   [TextEffect.NONE]: {},
   [TextEffect.BLINK]: {

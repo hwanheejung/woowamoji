@@ -1,6 +1,5 @@
 import {
   BACKGROUND_THEME,
-  BackgroundTheme,
   BackgroundThemeInfo,
   Category,
   SUB_CATEGORY,

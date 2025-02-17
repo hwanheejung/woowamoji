@@ -16,7 +16,7 @@ const TextInput = () => {
       debounce((value: string) => {
         updateFrame({ text: value })
       }, DEBOUNCE_DELAY),
-    [],
+    [updateFrame],
   )
 
   const handleChange = useCallback(

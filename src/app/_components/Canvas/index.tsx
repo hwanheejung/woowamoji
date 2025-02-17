@@ -45,7 +45,7 @@ const Canvas = ({ className }: CanvasProps) => {
       backGroundColor,
       backgroundTheme,
     })
-  }, [backGroundColor, backgroundTheme, bgContextRef])
+  }, [backGroundColor, backgroundTheme, bgContextRef, setBackgroundImage])
 
   // 🟢 텍스트 효과 적용
   useEffect(() => {
