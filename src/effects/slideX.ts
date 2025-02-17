@@ -74,7 +74,10 @@ const createSlider = (): EffectArgs => {
     saved = false
 
     const text = frameOptions.text || ''
-    if (!text) return
+    if (!text) {
+      renderFrame(context, canvasSize, frameOptions)
+      return
+    }
 
     // 첫 번째 글자의 크기 계산
     const { fontSize, width } = renderFrame(context, canvasSize, {
