@@ -29,7 +29,7 @@ const Demo = () => {
             </ol>
           </>
         }
-        className="breakpoint:block hidden"
+        className="breakpoint:flex hidden"
       >
         <Chat.Reaction
           emoji={<Chat.EmojiImage src="/emojis/wow.gif" />}
@@ -51,7 +51,7 @@ const Demo = () => {
         sender="빌리"
         time="6:30 PM"
         message="PR 올렸습니당 리뷰 부탁드려요~"
-        className="breakpoint:block hidden"
+        className="breakpoint:flex hidden"
       >
         <Chat.Reaction
           emoji={<Chat.EmojiImage src="/emojis/okay.gif" />}

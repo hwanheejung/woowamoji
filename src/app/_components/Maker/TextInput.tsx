@@ -22,6 +22,7 @@ const TextInput = () => {
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = event.target
+      if (value.length > 7) return
       setLocalText(value)
       debouncedUpdate(value)
     },
@@ -35,7 +36,7 @@ const TextInput = () => {
         value={localText}
         onChange={handleChange}
         placeholder={PLACEHOLDER}
-        className="placeholder-gray-300 flex-1 rounded-full bg-gray-100 px-4 py-2 outline-none"
+        className="flex-1 rounded-full bg-gray-100 px-4 py-2 placeholder-gray-300 outline-none"
       />
     </div>
   )

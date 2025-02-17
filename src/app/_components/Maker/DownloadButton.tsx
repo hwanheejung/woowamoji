@@ -7,7 +7,7 @@ import generateGifFromBuffer from '@/graphics/generateGif'
 
 const DownloadButton = () => {
   const { savedFrames, backgroundImage } = useGif()
-  const { effect } = useFrame()
+  const { text, effect } = useFrame()
   const interval = EFFECT_SETTINGS[effect].FRAME_INTERVAL
 
   return (
@@ -15,7 +15,8 @@ const DownloadButton = () => {
       onClick={() =>
         generateGifFromBuffer(backgroundImage!, savedFrames, interval)
       }
-      className="text-white w-full rounded-full bg-baeminBlue py-3"
+      className={`text-white w-full rounded-full bg-baeminBlue py-3 ${!text && 'cursor-not-allowed opacity-50'}`}
+      disabled={!text}
     >
       다운로드
     </button>
